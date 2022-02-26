@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+import { ingredientItemPropTypes } from "../../utils/types";
 import ingredientStyle from "./ingredient-item.module.css";
 import {
   Counter,
@@ -28,3 +30,8 @@ const IngredientItem = ({ ingredient, onCardClick }) => {
   );
 };
 export default IngredientItem;
+
+IngredientItem.propTypes = {
+  ingredient: ingredientItemPropTypes.isRequired,
+  onCardClick: PropTypes.func.isRequired,
+};

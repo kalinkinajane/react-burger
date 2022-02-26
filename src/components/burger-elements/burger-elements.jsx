@@ -1,4 +1,5 @@
-import React from "react";
+import PropTypes from "prop-types";
+import { ingredientsPropTypes } from "../../utils/types";
 import {
   ConstructorElement,
   DragIcon,
@@ -23,3 +24,8 @@ const BurgerElements = ({ elements }) => {
   );
 };
 export default BurgerElements;
+
+BurgerElements.propTypes = {
+  elements: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
+ 
+};

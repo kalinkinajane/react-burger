@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Modal from "../modal/modal";
 import detailStyle from "./order-details.module.css";
 import imgDatails from "../../images/image.png";
@@ -22,3 +23,9 @@ const OrderDetails = (props)=>{
 }
 
 export default OrderDetails;
+OrderDetails.propTypes = {
+  title: PropTypes.string,
+  isOpen: PropTypes.bool,
+  closeModal: PropTypes.func.isRequired,
+};
+
