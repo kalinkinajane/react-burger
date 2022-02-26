@@ -6,7 +6,10 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerElements from "../burger-elements/burger-elements";
 
+
 const BurgerConstructor = ({ structure, openOrderDetails }) => {
+  const countSum = (arr) => arr.reduce((sum, current) => sum + current.price, 0);
+  const countPrice = countSum(structure)
   const selectBun = structure.find((item) => item.type === "bun");
   const ingredients = structure.filter((item) => item.type !== "bun");
 
@@ -38,7 +41,7 @@ const BurgerConstructor = ({ structure, openOrderDetails }) => {
 
       <div className={`${constructorStyle.result} mt-10 mr-4`}>
         <div className={`${constructorStyle.cost} mr-10`}>
-          <p className="text text_type_digits-medium mr-2">600</p>
+          <p className="text text_type_digits-medium mr-2">{countPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
         <Button onClick={openOrderDetails} type="primary" size="medium">

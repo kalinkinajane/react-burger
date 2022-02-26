@@ -2,9 +2,10 @@ import Modal from "../modal/modal";
 import detailStyle from "./order-details.module.css";
 import imgDatails from "../../images/image.png";
 
-const OrderDetails = ({ isOpen, closeModal }) => {
+const OrderDetails = (props)=>{
+ 
   return (
-    <Modal title="" isOpen={isOpen} closeModal={closeModal} >
+    <Modal title="" {...props}>
       <p className={`${detailStyle.count} text text_type_digits-large mb-8`}>
         034536
       </p>
@@ -18,5 +19,6 @@ const OrderDetails = ({ isOpen, closeModal }) => {
       </p>
     </Modal>
   );
-};
+}
+
 export default OrderDetails;

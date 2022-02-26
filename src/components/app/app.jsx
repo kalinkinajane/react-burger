@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState} from "react";
 import { requestApi } from "../../utils/api";
 import appStyles from "./app.module.css";
 import AppHeader from "../header/app-header";
@@ -12,8 +12,7 @@ function App() {
   const [isOpenOrderDetails, setOpenOrderDetails] = useState(false);
   const [isOpenIngredientDetails, setOpenIngredientDetails] = useState(false);
   const [ingredient, setIngredient] = useState({});
-  const overlayRef = useRef(null);
-console.log(overlayRef)
+ 
   useEffect(() => {
     requestApi()
       .then((data) => setData(data.data))
@@ -57,12 +56,11 @@ console.log(overlayRef)
         />
         <BurgerConstructor structure={data} openOrderDetails={openModal} />
       </main>
-      <OrderDetails isOpen={isOpenOrderDetails} closeModal={closeModal} ref={overlayRef}/>
+      <OrderDetails isOpen={isOpenOrderDetails} closeModal={closeModal}/>
       <IngredientDetails
         isOpen={isOpenIngredientDetails}
         closeModal={closeModal}
         ingredient={ingredient}
-        ref={overlayRef}
       />
     </div>
   );
