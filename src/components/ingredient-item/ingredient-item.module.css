@@ -1,0 +1,12 @@
+.item {
+    position: relative;
+    min-height: 208px;
+    min-width: 272px;
+    display: flex;
+    flex-direction: column;
+  }
+  .counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
