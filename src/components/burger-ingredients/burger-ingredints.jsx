@@ -7,7 +7,7 @@ const sortIngredients = (arr, type) => {
   return arr.filter((item) => item.type === type);
 };
 
-const BurgerIngredints = ({ ingredients }) => {
+const BurgerIngredints = ({ ingredients, onCardClick }) => {
   const ingredientsBun = sortIngredients(ingredients, "bun");
   const ingredientsSauce = sortIngredients(ingredients, "sauce");
   const ingredientsMain = sortIngredients(ingredients, "main");
@@ -22,11 +22,17 @@ const BurgerIngredints = ({ ingredients }) => {
       <Tabs />
       <div className={ingredientsStyle.container}>
         <p className="text text_type_main-medium mt-10 mb-5">Булки</p>
-        <IncludeBurger ingredients={ingredientsBun} />
+        <IncludeBurger ingredients={ingredientsBun} onCardClick={onCardClick} />
         <p className="text text_type_main-medium mt-10 mb-5">Соусы</p>
-        <IncludeBurger ingredients={ingredientsSauce} />
+        <IncludeBurger
+          ingredients={ingredientsSauce}
+          onCardClick={onCardClick}
+        />
         <p className="text text_type_main-medium mt-10 mb-5">Начинки</p>
-        <IncludeBurger ingredients={ingredientsMain} />
+        <IncludeBurger
+          ingredients={ingredientsMain}
+          onCardClick={onCardClick}
+        />
       </div>
     </section>
   );

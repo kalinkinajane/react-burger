@@ -15,11 +15,11 @@
   padding-right: 8px;
 }
 .container::-webkit-scrollbar {
-  width: 8px; 
+  width: 8px;
   height: 92px;
-  background-color: #2F2F37;
+  background-color: #2f2f37;
 }
 .container::-webkit-scrollbar-thumb {
-  background-color: #8585AD;
-  border: 3px solid #8585AD;
+  background-color: #8585ad;
+  border: 3px solid #8585ad;
 }
