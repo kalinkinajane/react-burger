@@ -1,10 +1,13 @@
-import PropTypes from "prop-types";
-import { ingredientItemPropTypes } from "../../utils/types";
-import ingredientStyle from "./ingredient-item.module.css";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+
+import { ingredientItemPropTypes } from "../../utils/types";
+
+import ingredientStyle from "./ingredient-item.module.css";
+
 
 const IngredientItem = ({ ingredient, onCardClick }) => {
   const { image, name, price } = ingredient;

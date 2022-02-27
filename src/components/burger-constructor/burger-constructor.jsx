@@ -1,11 +1,13 @@
-import PropTypes from "prop-types";
-import { ingredientsPropTypes } from "../../utils/types";
-import constructorStyle from "./burger-constructor.module.css";
 import {
   ConstructorElement,
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import PropTypes from "prop-types";
+
+import { ingredientsPropTypes } from "../../utils/types";
+
+import constructorStyle from "./burger-constructor.module.css";
 import BurgerElements from "../burger-elements/burger-elements";
 
 const BurgerConstructor = ({ selectIngredients, openOrderDetails }) => {

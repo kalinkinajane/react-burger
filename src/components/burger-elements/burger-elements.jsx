@@ -1,9 +1,11 @@
 import PropTypes from "prop-types";
-import { ingredientsPropTypes } from "../../utils/types";
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import { ingredientsPropTypes } from "../../utils/types";
+
 import elementsStyle from "./burger-elements.module.css";
 
 const BurgerElements = ({ elements }) => {

@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
+
 import { ingredientsPropTypes } from "../../utils/types";
-import burgerStyle from "./include-burger.module.css";
+
 import IngredientItem from "../ingredient-item/ingredient-item";
+
+import burgerStyle from "./include-burger.module.css";
 
 const IncludeBurger = ({ ingredients, onCardClick }) => {
   return (

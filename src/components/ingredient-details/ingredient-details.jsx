@@ -1,6 +1,9 @@
 import PropTypes from "prop-types";
+
 import { ingredientsPropTypes } from "../../utils/types";
+
 import Modal from "../modal/modal";
+
 import ingredientStyle from "./ingredient-details.module.css";
 
 const IngredientDetails = ({ isOpen, closeModal, ingredient }) => {

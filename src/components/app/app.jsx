@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+
 import { requestApi } from "../../utils/api";
-import appStyles from "./app.module.css";
 import AppHeader from "../header/app-header";
 import BurgerIngredints from "../burger-ingredients/burger-ingredints";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+
+import appStyles from "./app.module.css";
 
 function App() {
   const [data, setData] = useState([]);

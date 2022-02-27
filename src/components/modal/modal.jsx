@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import modalStyle from "./modal.module.css";
+
 import ModalOverlay from "../modal-overlay/modal-overlay";
+
+import modalStyle from "./modal.module.css";
 
 const Modal = ({ title, children, isOpen, closeModal }) => {
   function handleESCclose(evt) {

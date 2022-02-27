@@ -1,7 +1,11 @@
 import PropTypes from "prop-types";
+
 import Modal from "../modal/modal";
-import detailStyle from "./order-details.module.css";
 import imgDatails from "../../images/image.png";
+
+import detailStyle from "./order-details.module.css";
+
+
 
 const OrderDetails = (props) => {
   return (

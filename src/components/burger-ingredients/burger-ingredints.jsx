@@ -1,8 +1,11 @@
 import PropTypes from "prop-types";
+
 import { ingredientsPropTypes } from "../../utils/types";
-import ingredientsStyle from "./burger-ingredints.module.css";
+
 import Tabs from "../tabs/tabs";
 import IncludeBurger from "../include-burger/include-burger";
+
+import ingredientsStyle from "./burger-ingredints.module.css";
 
 const filterIngredients = (arr, type) => {
   return arr.filter((item) => item.type === type);
