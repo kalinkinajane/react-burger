@@ -1,9 +1,9 @@
+import PropTypes from "prop-types";
 import {
   ConstructorElement,
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from "prop-types";
 
 import { ingredientsPropTypes } from "../../utils/types";
 
