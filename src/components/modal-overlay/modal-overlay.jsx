@@ -13,9 +13,12 @@ const ModalOverlay = ({ children, closeModal }) => {
     </div>
   );
 };
-export default ModalOverlay;
 
 ModalOverlay.propTypes = {
   children: PropTypes.node.isRequired,
   closeModal: PropTypes.func.isRequired,
 };
+
+export default ModalOverlay;
+
+

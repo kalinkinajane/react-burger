@@ -45,10 +45,11 @@ const IngredientDetails = ({ isOpen, closeModal, ingredient }) => {
     </Modal>
   );
 };
-export default IngredientDetails;
 
 IngredientDetails.propTypes = {
   isOpen: PropTypes.bool,
   closeModal: PropTypes.func.isRequired,
   ingredient: ingredientsPropTypes.isRequired,
 };
+
+export default IngredientDetails;

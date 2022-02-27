@@ -29,9 +29,10 @@ const IngredientItem = ({ ingredient, onCardClick }) => {
     </div>
   );
 };
-export default IngredientItem;
 
 IngredientItem.propTypes = {
   ingredient: ingredientItemPropTypes.isRequired,
   onCardClick: PropTypes.func.isRequired,
 };
+
+export default IngredientItem;

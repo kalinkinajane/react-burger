@@ -23,9 +23,9 @@ const BurgerElements = ({ elements }) => {
     </div>
   );
 };
-export default BurgerElements;
 
 BurgerElements.propTypes = {
   elements: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
- 
 };
+
+export default BurgerElements;

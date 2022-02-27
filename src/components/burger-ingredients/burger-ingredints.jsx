@@ -38,9 +38,10 @@ const BurgerIngredints = ({ ingredients, onCardClick }) => {
     </section>
   );
 };
-export default BurgerIngredints;
 
 BurgerIngredints.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
   onCardClick: PropTypes.func.isRequired,
 };
+
+export default BurgerIngredints;

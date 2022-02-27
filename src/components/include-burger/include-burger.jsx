@@ -17,9 +17,10 @@ const IncludeBurger = ({ ingredients, onCardClick }) => {
     </div>
   );
 };
-export default IncludeBurger;
 
 IncludeBurger.propTypes = {
   ingredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
   onCardClick: PropTypes.func.isRequired,
 };
+
+export default IncludeBurger;

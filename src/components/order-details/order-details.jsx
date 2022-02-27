@@ -3,8 +3,7 @@ import Modal from "../modal/modal";
 import detailStyle from "./order-details.module.css";
 import imgDatails from "../../images/image.png";
 
-const OrderDetails = (props)=>{
- 
+const OrderDetails = (props) => {
   return (
     <Modal {...props}>
       <p className={`${detailStyle.count} text text_type_digits-large mb-8`}>
@@ -20,12 +19,12 @@ const OrderDetails = (props)=>{
       </p>
     </Modal>
   );
-}
+};
 
-export default OrderDetails;
 OrderDetails.propTypes = {
   title: PropTypes.string,
   isOpen: PropTypes.bool,
   closeModal: PropTypes.func.isRequired,
 };
 
+export default OrderDetails;
