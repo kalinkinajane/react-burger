@@ -4,14 +4,14 @@ import ingredientsStyle from "./burger-ingredints.module.css";
 import Tabs from "../tabs/tabs";
 import IncludeBurger from "../include-burger/include-burger";
 
-const sortIngredients = (arr, type) => {
+const filterIngredients = (arr, type) => {
   return arr.filter((item) => item.type === type);
 };
 
 const BurgerIngredints = ({ ingredients, onCardClick }) => {
-  const ingredientsBun = sortIngredients(ingredients, "bun");
-  const ingredientsSauce = sortIngredients(ingredients, "sauce");
-  const ingredientsMain = sortIngredients(ingredients, "main");
+  const ingredientsBun = filterIngredients(ingredients, "bun");
+  const ingredientsSauce = filterIngredients(ingredients, "sauce");
+  const ingredientsMain = filterIngredients(ingredients, "main");
 
   return (
     <section className={`${ingredientsStyle.ingredients} pb-10 mr-10`}>

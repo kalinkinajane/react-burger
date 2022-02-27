@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { requestApi } from "../../utils/api";
 import appStyles from "./app.module.css";
 import AppHeader from "../header/app-header";
@@ -11,25 +11,12 @@ function App() {
   const [data, setData] = useState([]);
   const [isOpenOrderDetails, setOpenOrderDetails] = useState(false);
   const [isOpenIngredientDetails, setOpenIngredientDetails] = useState(false);
-  const [ingredient, setIngredient] = useState({});
- 
+  const [ingredient, setIngredient] = useState(null);
+
   useEffect(() => {
     requestApi()
       .then((data) => setData(data.data))
       .catch((err) => console.log(err));
-  }, []);
-
-  function handleESCclose(evt) {
-    if (evt.key === "Escape") {
-      closeModal();
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleESCclose);
-    return () => {
-      document.removeEventListener("keydown", handleESCclose);
-    };
   }, []);
 
   const openModal = () => {
@@ -54,14 +41,16 @@ function App() {
           ingredients={data}
           onCardClick={openIngredientDetails}
         />
-        <BurgerConstructor structure={data} openOrderDetails={openModal} />
+        <BurgerConstructor selectIngredients={data} openOrderDetails={openModal} />
       </main>
-      <OrderDetails isOpen={isOpenOrderDetails} closeModal={closeModal}/>
-      <IngredientDetails
-        isOpen={isOpenIngredientDetails}
-        closeModal={closeModal}
-        ingredient={ingredient}
-      />
+      <OrderDetails isOpen={isOpenOrderDetails} closeModal={closeModal} />
+      {ingredient && (
+        <IngredientDetails
+          isOpen={isOpenIngredientDetails}
+          closeModal={closeModal}
+          ingredient={ingredient}
+        />
+      )}
     </div>
   );
 }

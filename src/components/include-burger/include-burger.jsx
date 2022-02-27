@@ -7,9 +7,9 @@ const IncludeBurger = ({ ingredients, onCardClick }) => {
   return (
     <div className={`${burgerStyle.items} pl-4`}>
       {ingredients &&
-        ingredients.map((item, index) => (
+        ingredients.map((item) => (
           <IngredientItem
-            key={index}
+            key={item._id}
             ingredient={item}
             onCardClick={onCardClick}
           />

@@ -10,8 +10,8 @@ const BurgerElements = ({ elements }) => {
   return (
     <div className={`${elementsStyle.elements} mt-4 mb-4`}>
       {elements &&
-        elements.map((item, index) => (
-          <div className={`${elementsStyle.element} mb-4`} key={index}>
+        elements.map((item) => (
+          <div className={`${elementsStyle.element} mb-4`} key={item._id}>
             <DragIcon type="primary" />
             <ConstructorElement
               text={item.name}

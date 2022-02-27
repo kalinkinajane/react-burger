@@ -6,7 +6,7 @@ import imgDatails from "../../images/image.png";
 const OrderDetails = (props)=>{
  
   return (
-    <Modal title="" {...props}>
+    <Modal {...props}>
       <p className={`${detailStyle.count} text text_type_digits-large mb-8`}>
         034536
       </p>

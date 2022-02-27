@@ -8,12 +8,13 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerElements from "../burger-elements/burger-elements";
 
-const BurgerConstructor = ({ structure, openOrderDetails }) => {
-  const countSum = (arr) =>
-    arr.reduce((sum, current) => sum + current.price, 0);
-  const countPrice = countSum(structure);
-  const selectBun = structure.find((item) => item.type === "bun");
-  const ingredients = structure.filter((item) => item.type !== "bun");
+const BurgerConstructor = ({ selectIngredients, openOrderDetails }) => {
+  const selectBun = selectIngredients.find((item) => item.type === "bun");
+  const ingredients = selectIngredients.filter((item) => item.type !== "bun");
+
+  const countPrice =
+    selectBun &&
+    ingredients.reduce((sum, current) => sum + current.price, selectBun.price * 2);
 
   return (
     <section className={`${constructorStyle.constructor} pt-25 pb-10`}>
@@ -53,9 +54,12 @@ const BurgerConstructor = ({ structure, openOrderDetails }) => {
     </section>
   );
 };
-export default BurgerConstructor;
 
 BurgerConstructor.propTypes = {
-  structure: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
+  selectIngredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
   openOrderDetails: PropTypes.func.isRequired,
 };
+
+export default BurgerConstructor;
+
+
