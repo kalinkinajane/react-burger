@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -7,7 +7,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 
 import modalStyle from "./modal.module.css";
 
-const Modal = ({ title, children, isOpen, closeModal }) => {
+const Modal = ({ title = '', children, isOpen, closeModal }) => {
   function handleESCclose(evt) {
     if (evt.key === "Escape") {
       closeModal();
@@ -19,6 +19,7 @@ const Modal = ({ title, children, isOpen, closeModal }) => {
     return () => {
       document.removeEventListener("keydown", handleESCclose);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (!isOpen) return null;
