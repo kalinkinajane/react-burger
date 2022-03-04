@@ -1,0 +1,19 @@
+.constructor {
+  width: 49%;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  padding-bottom: 52px;
+}
+.container{
+  height: 80px;
+}
+.cost {
+  display: flex;
+  align-items: center;
+}
+.result {
+  display: flex;
+  align-items: center;
+
+}
