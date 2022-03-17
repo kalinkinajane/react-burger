@@ -1,6 +1,10 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useEffect, useState } from "react";
 
 import { requestApi } from "../../utils/api";
+import {
+  IngredirntsBurgerContext,
+  OrderDetailsContext,
+} from "../../contexts/burgerConstructorContext";
 import AppHeader from "../header/app-header";
 import BurgerIngredints from "../burger-ingredients/burger-ingredints";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
@@ -14,6 +18,8 @@ function App() {
   const [isOpenOrderDetails, setOpenOrderDetails] = useState(false);
   const [isOpenIngredientDetails, setOpenIngredientDetails] = useState(false);
   const [ingredient, setIngredient] = useState(null);
+
+  const [orderDetails, setOrderDetails] = useState();
 
   useEffect(() => {
     requestApi()
@@ -43,16 +49,22 @@ function App() {
           ingredients={data}
           onCardClick={openIngredientDetails}
         />
-        <BurgerConstructor selectIngredients={data} openOrderDetails={openModal} />
+        {ingredient && (
+          <IngredientDetails
+            isOpen={isOpenIngredientDetails}
+            closeModal={closeModal}
+            ingredient={ingredient}
+          />
+        )}
+        <IngredirntsBurgerContext.Provider value={{ data, setData }}>
+          <OrderDetailsContext.Provider
+            value={{ orderDetails, setOrderDetails }}
+          >
+            <BurgerConstructor openOrderDetails={openModal} />
+            <OrderDetails isOpen={isOpenOrderDetails} closeModal={closeModal} />
+          </OrderDetailsContext.Provider>
+        </IngredirntsBurgerContext.Provider>
       </main>
-      <OrderDetails isOpen={isOpenOrderDetails} closeModal={closeModal} />
-      {ingredient && (
-        <IngredientDetails
-          isOpen={isOpenIngredientDetails}
-          closeModal={closeModal}
-          ingredient={ingredient}
-        />
-      )}
     </div>
   );
 }

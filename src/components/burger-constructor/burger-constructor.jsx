@@ -1,3 +1,4 @@
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import {
   ConstructorElement,
@@ -5,18 +6,41 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { ingredientsPropTypes } from "../../utils/types";
-
 import constructorStyle from "./burger-constructor.module.css";
 import BurgerElements from "../burger-elements/burger-elements";
+import { createOrder } from "../../utils/api";
+import {
+  IngredirntsBurgerContext,
+ OrderDetailsContext,
+} from "../../contexts/burgerConstructorContext";
 
-const BurgerConstructor = ({ selectIngredients, openOrderDetails }) => {
-  const selectBun = selectIngredients.find((item) => item.type === "bun");
-  const ingredients = selectIngredients.filter((item) => item.type !== "bun");
+const BurgerConstructor = ({ openOrderDetails }) => {
+  const [ingredientsId, setIngredientsId] = useState({ ingredients: [] });
+  const { data } = useContext(IngredirntsBurgerContext);
+  const { setOrderDetails} = useContext(OrderDetailsContext);
+  const selectBun = data.find((item) => item.type === "bun");
+  const ingredients = data.filter((item) => item.type !== "bun");
+
+  useEffect(() => {
+    const newData = data.map((item) => item._id);
+    setIngredientsId({ ingredients: newData });
+  }, [data]);
 
   const countPrice =
     selectBun &&
-    ingredients.reduce((sum, current) => sum + current.price, selectBun.price * 2);
+    ingredients.reduce(
+      (sum, current) => sum + current.price,
+      selectBun.price * 2
+    );
+
+  const createOrderDetails = () => {
+    createOrder(ingredientsId)
+      .then((res) => {
+        setOrderDetails(res);
+      })
+      .catch((err) => console.log(err))
+      .finally(openOrderDetails());
+  };
 
   return (
     <section className={`${constructorStyle.constructor} pt-25 pb-10`}>
@@ -49,7 +73,7 @@ const BurgerConstructor = ({ selectIngredients, openOrderDetails }) => {
           <p className="text text_type_digits-medium mr-2">{countPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button onClick={openOrderDetails} type="primary" size="medium">
+        <Button onClick={createOrderDetails} type="primary" size="medium">
           Оформить заказ
         </Button>
       </div>
@@ -58,10 +82,7 @@ const BurgerConstructor = ({ selectIngredients, openOrderDetails }) => {
 };
 
 BurgerConstructor.propTypes = {
-  selectIngredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
   openOrderDetails: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;
-
-
