@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import {
   ConstructorElement,
@@ -8,38 +9,34 @@ import {
 
 import constructorStyle from "./burger-constructor.module.css";
 import BurgerElements from "../burger-elements/burger-elements";
-import { createOrder } from "../../utils/api";
-import {
-  IngredirntsBurgerContext,
- OrderDetailsContext,
-} from "../../contexts/burgerConstructorContext";
+import { IngredirntsBurgerContext } from "../../contexts/burgerConstructorContext";
+
+import { createOrderDetails } from "../../services/actions";
 
 const BurgerConstructor = ({ openOrderDetails }) => {
   const [ingredientsId, setIngredientsId] = useState({ ingredients: [] });
-  const { data } = useContext(IngredirntsBurgerContext);
-  const { setOrderDetails} = useContext(OrderDetailsContext);
-  const selectBun = data.find((item) => item.type === "bun");
-  const ingredients = data.filter((item) => item.type !== "bun");
+  const { ingredients } = useContext(IngredirntsBurgerContext);
+
+  const dispatch = useDispatch();
+
+  const selectBun = ingredients.find((item) => item.type === "bun");
+  const ingredientsFilling = ingredients.filter((item) => item.type !== "bun");
 
   useEffect(() => {
-    const newData = data.map((item) => item._id);
+    const newData = ingredients.map((item) => item._id);
     setIngredientsId({ ingredients: newData });
-  }, [data]);
+  }, [ingredients]);
 
   const countPrice =
     selectBun &&
-    ingredients.reduce(
+    ingredientsFilling.reduce(
       (sum, current) => sum + current.price,
       selectBun.price * 2
     );
 
-  const createOrderDetails = () => {
-    createOrder(ingredientsId)
-      .then((res) => {
-        setOrderDetails(res);
-      })
-      .catch((err) => console.log(err))
-      .finally(openOrderDetails());
+  const handleCreateOrderDetails = () => {
+    dispatch(createOrderDetails(ingredientsId));
+    openOrderDetails();
   };
 
   return (
@@ -73,7 +70,7 @@ const BurgerConstructor = ({ openOrderDetails }) => {
           <p className="text text_type_digits-medium mr-2">{countPrice}</p>
           <CurrencyIcon type="primary" />
         </div>
-        <Button onClick={createOrderDetails} type="primary" size="medium">
+        <Button onClick={handleCreateOrderDetails} type="primary" size="medium">
           Оформить заказ
         </Button>
       </div>

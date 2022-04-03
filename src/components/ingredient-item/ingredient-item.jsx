@@ -11,8 +11,8 @@ import ingredientStyle from "./ingredient-item.module.css";
 
 const IngredientItem = ({ ingredient, onCardClick }) => {
   const { image, name, price } = ingredient;
-
-  const handleClick = () => {
+ 
+  const handleClick = () => { 
     onCardClick(ingredient);
   };
 

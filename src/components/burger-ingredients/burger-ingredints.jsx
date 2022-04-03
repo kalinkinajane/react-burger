@@ -1,17 +1,26 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
-
-import { ingredientsPropTypes } from "../../utils/types";
 
 import Tabs from "../tabs/tabs";
 import IncludeBurger from "../include-burger/include-burger";
+import { getItems } from "../../services/actions";
 
 import ingredientsStyle from "./burger-ingredints.module.css";
+
 
 const filterIngredients = (arr, type) => {
   return arr.filter((item) => item.type === type);
 };
 
-const BurgerIngredints = ({ ingredients, onCardClick }) => {
+const BurgerIngredints = ({ onCardClick }) => {
+  const ingredients = useSelector(store => store.ingredients.items);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getItems())
+  }, [dispatch]);
+
   const ingredientsBun = filterIngredients(ingredients, "bun");
   const ingredientsSauce = filterIngredients(ingredients, "sauce");
   const ingredientsMain = filterIngredients(ingredients, "main");
@@ -43,7 +52,6 @@ const BurgerIngredints = ({ ingredients, onCardClick }) => {
 };
 
 BurgerIngredints.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
   onCardClick: PropTypes.func.isRequired,
 };
 

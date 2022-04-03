@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { requestApi } from "../../utils/api";
-import {
-  IngredirntsBurgerContext,
-  OrderDetailsContext,
-} from "../../contexts/burgerConstructorContext";
+import { IngredirntsBurgerContext} from "../../contexts/burgerConstructorContext";
 import AppHeader from "../header/app-header";
 import BurgerIngredints from "../burger-ingredients/burger-ingredints";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
@@ -13,19 +10,20 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 
 import appStyles from "./app.module.css";
 
+import { addIngredient, REMOVE_VIEW_INGREDIENT } from "../../services/actions";
+
+
 function App() {
   const [data, setData] = useState([]);
+  
   const [isOpenOrderDetails, setOpenOrderDetails] = useState(false);
   const [isOpenIngredientDetails, setOpenIngredientDetails] = useState(false);
-  const [ingredient, setIngredient] = useState(null);
 
-  const [orderDetails, setOrderDetails] = useState();
 
-  useEffect(() => {
-    requestApi()
-      .then((data) => setData(data.data))
-      .catch((err) => console.log(err));
-  }, []);
+  const ingredient = useSelector(store => store.ingredients.viewIngredient)
+  // временно
+  const ingredients = useSelector(store => store.ingredients.items);
+  const dispatch = useDispatch()
 
   const openModal = () => {
     setOpenOrderDetails(!isOpenOrderDetails);
@@ -34,10 +32,11 @@ function App() {
   const closeModal = () => {
     setOpenOrderDetails(false);
     setOpenIngredientDetails(false);
+    dispatch({type: REMOVE_VIEW_INGREDIENT})
   };
 
   const openIngredientDetails = (card) => {
-    setIngredient(card);
+    dispatch(addIngredient(card))
     setOpenIngredientDetails(!isOpenIngredientDetails);
   };
 
@@ -46,7 +45,6 @@ function App() {
       <AppHeader />
       <main className={appStyles.main}>
         <BurgerIngredints
-          ingredients={data}
           onCardClick={openIngredientDetails}
         />
         {ingredient && (
@@ -56,13 +54,9 @@ function App() {
             ingredient={ingredient}
           />
         )}
-        <IngredirntsBurgerContext.Provider value={{ data, setData }}>
-          <OrderDetailsContext.Provider
-            value={{ orderDetails, setOrderDetails }}
-          >
+        <IngredirntsBurgerContext.Provider value={{ ingredients, setData }}>
             <BurgerConstructor openOrderDetails={openModal} />
             <OrderDetails isOpen={isOpenOrderDetails} closeModal={closeModal} />
-          </OrderDetailsContext.Provider>
         </IngredirntsBurgerContext.Provider>
       </main>
     </div>

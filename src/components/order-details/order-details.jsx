@@ -1,21 +1,21 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 import Modal from "../modal/modal";
 import imgDatails from "../../images/image.png";
 
-import { OrderDetailsContext } from "../../contexts/burgerConstructorContext";
-
 import detailStyle from "./order-details.module.css";
 
-const OrderDetails = (props) => {
-  const { orderDetails } = useContext(OrderDetailsContext);
 
-  if (!orderDetails) return null;
+const OrderDetails = (props) => {
+  const details = useSelector(store => store.orderDetail.orderDetail)
+
+  if (!details) return null;
   return (
     <Modal {...props}>
       <p className={`${detailStyle.count} text text_type_digits-large mb-8`}>
-        {orderDetails.order.number}
+        {details.order.number}
       </p>
       <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
       <img className="mt-2 mb-2" src={imgDatails} alt="" />
