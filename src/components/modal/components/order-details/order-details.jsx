@@ -2,14 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-import Modal from "../modal/modal";
-import imgDatails from "../../images/image.png";
+import Modal from "../../modal";
+import imgDatails from "../../../../images/image.png";
 
 import detailStyle from "./order-details.module.css";
 
-
 const OrderDetails = (props) => {
-  const details = useSelector(store => store.orderDetail.orderDetail)
+  const details = useSelector((store) => store.orderDetail.orderDetail);
 
   if (!details) return null;
   return (

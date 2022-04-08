@@ -17,7 +17,6 @@ typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
 const store = createStore(rootReducer, enhancer);
-console.log(store)
 
 ReactDOM.render(
   <React.StrictMode>

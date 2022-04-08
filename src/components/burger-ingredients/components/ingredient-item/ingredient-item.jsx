@@ -1,24 +1,42 @@
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { useDrag } from "react-dnd";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { ingredientItemPropTypes } from "../../utils/types";
+import { ingredientItemPropTypes } from "../../../../utils/types";
 
 import ingredientStyle from "./ingredient-item.module.css";
 
-
 const IngredientItem = ({ ingredient, onCardClick }) => {
-  const { image, name, price } = ingredient;
- 
-  const handleClick = () => { 
+  const { image, name, price, _id } = ingredient;
+  const { ingredients, bun } = useSelector((store) => store.ingredients);
+
+  const count = [...ingredients, bun].filter(
+    (item) => item && item._id === _id
+  ).length;
+
+  const handleClick = () => {
     onCardClick(ingredient);
   };
 
+  const [{ opacity }, dragRef] = useDrag({
+    type: "ingredient",
+    item: { ...ingredient },
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.5 : 1,
+    }),
+  });
+
   return (
-    <div className={ingredientStyle.item} onClick={handleClick}>
-      <Counter count={1} size="default" />
+    <div
+      ref={dragRef}
+      className={ingredientStyle.item}
+      onClick={handleClick}
+      style={{ opacity }} >
+      {count ? <Counter count={count} size="default" /> : ""}
       <img
         className={`${ingredientStyle.image} ml-4 mr-4`}
         src={image}

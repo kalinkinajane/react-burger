@@ -1,21 +1,21 @@
-import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import IncludeBurger from "../include-burger/include-burger";
-import { getItems } from "../../services/actions";
+import IncludeBurger from "./components/include-burger/include-burger";
+import { getItems } from "../../services/actions/items-burger";
+import { tabTypes } from "../../constants/constants";
 
 import ingredientsStyle from "./burger-ingredints.module.css";
-import { tabTypes } from "../../constants/constants";
 
 const filterIngredients = (arr, type) => {
   return arr.filter((item) => item.type === type);
 };
 
 const BurgerIngredints = ({ onCardClick }) => {
-  const ingredients = useSelector((store) => store.ingredients.items);
+  const ingredients = useSelector((store) => store.itemsBurger.items);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -35,20 +35,43 @@ const BurgerIngredints = ({ onCardClick }) => {
 
   const changeTabs = (value, ref) => {
     setCurrent(value);
-    ref.current.scrollIntoView({ behavior: "smooth" });
+    ref.current.scrollIntoView();
   };
 
   const scrollIngredients = () => {
-    const bunRange = Math.abs(containerRef.current.getBoundingClientRect().top - bunRef.current.getBoundingClientRect().top);
-    const sauceRange = Math.abs(containerRef.current.getBoundingClientRect().top - sauceRef.current.getBoundingClientRect().top);
-    const mainRange = Math.abs(containerRef.current.getBoundingClientRect().top - mainRef.current.getBoundingClientRect().top);
-    
-    const minRange = Math.min(bunRange, sauceRange, mainRange)
+    const bunRange = Math.abs(
+      containerRef.current.getBoundingClientRect().top -
+        bunRef.current.getBoundingClientRect().top
+    );
+    const sauceRange = Math.abs(
+      containerRef.current.getBoundingClientRect().top -
+        sauceRef.current.getBoundingClientRect().top
+    );
+    const mainRange = Math.abs(
+      containerRef.current.getBoundingClientRect().top -
+        mainRef.current.getBoundingClientRect().top
+    );
 
-    const activeTab = minRange === bunRange ? tabTypes.bunTab : minRange === sauceRange ? tabTypes.sauceTab : tabTypes.mainTab
-  
+    const minRange = Math.min(bunRange, sauceRange, mainRange);
+
+    const activeTab =
+      minRange === bunRange
+        ? tabTypes.bunTab
+        : minRange === sauceRange
+        ? tabTypes.sauceTab
+        : tabTypes.mainTab;
+
     setCurrent(activeTab);
   };
+
+  useEffect(() => {
+    if (current === "bun")
+      bunRef.current.scrollIntoView({ block: "start", behavior: "smooth" });
+    if (current === "sauce")
+      sauceRef.current.scrollIntoView({ block: "start", behavior: "smooth" });
+    if (current === "main")
+      mainRef.current.scrollIntoView({ block: "start", behavior: "smooth" });
+  }, [current]);
 
   return (
     <section className={`${ingredientsStyle.ingredients} pb-10 mr-10`}>

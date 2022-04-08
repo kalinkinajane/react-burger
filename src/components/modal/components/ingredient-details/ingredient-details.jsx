@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 
-import { ingredientsPropTypes } from "../../utils/types";
+import { ingredientsPropTypes } from "../../../../utils/types";
 
-import Modal from "../modal/modal";
+import Modal from "../../modal";
 
 import ingredientStyle from "./ingredient-details.module.css";
 
