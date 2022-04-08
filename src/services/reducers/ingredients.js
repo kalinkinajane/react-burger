@@ -22,7 +22,6 @@ export const ingredientsConstructorReduser = (state = initialState, action) => {
       return {
         ...state,
         ingredients: [...state.ingredients, action.payload],
-        count: state.count + 1,
       };
     }
     case DELETE_INGREDIENT_BURGER: {
