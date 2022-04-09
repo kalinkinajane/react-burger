@@ -5,3 +5,7 @@ export const addIngredient = (item) => ({
   type: ADD_VIEW_INGREDIENT,
   payload: item,
 });
+
+export const removeIngredient = () => ({
+  type: REMOVE_VIEW_INGREDIENT,
+});

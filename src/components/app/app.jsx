@@ -9,7 +9,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import OrderDetails from "../modal/components/order-details/order-details";
 import IngredientDetails from "../modal/components/ingredient-details/ingredient-details";
 
-import { addIngredient, REMOVE_VIEW_INGREDIENT } from "../../services/actions/details";
+import { addIngredient, removeIngredient } from "../../services/actions/details";
 
 import appStyles from "./app.module.css";
 
@@ -17,7 +17,9 @@ function App() {
   const [isOpenOrderDetails, setOpenOrderDetails] = useState(false);
   const [isOpenIngredientDetails, setOpenIngredientDetails] = useState(false);
 
-  const ingredient = useSelector((store) => store.ingredientDetail.viewIngredient);
+  const ingredient = useSelector(
+    (store) => store.ingredientDetail.viewIngredient
+  );
   const dispatch = useDispatch();
 
   const openModal = () => {
@@ -27,7 +29,7 @@ function App() {
   const closeModal = () => {
     setOpenOrderDetails(false);
     setOpenIngredientDetails(false);
-    dispatch({ type: REMOVE_VIEW_INGREDIENT });
+    dispatch(removeIngredient());
   };
 
   const openIngredientDetails = (card) => {

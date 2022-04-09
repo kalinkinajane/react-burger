@@ -1,5 +1,4 @@
-export const URL_INGREDIENTS = "https://norma.nomoreparties.space/api/ingredients";
-export const URL_ORDERS = "https://norma.nomoreparties.space/api/orders";
+export const baseUrl = "https://norma.nomoreparties.space/api";
 
 export const tabTypes = {
   bunTab: "bun",

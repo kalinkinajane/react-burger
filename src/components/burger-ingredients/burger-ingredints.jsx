@@ -35,7 +35,7 @@ const BurgerIngredints = ({ onCardClick }) => {
 
   const changeTabs = (value, ref) => {
     setCurrent(value);
-    ref.current.scrollIntoView();
+    ref.current.scrollIntoView({ behavior: "smooth" });
   };
 
   const scrollIngredients = () => {
@@ -63,15 +63,6 @@ const BurgerIngredints = ({ onCardClick }) => {
 
     setCurrent(activeTab);
   };
-
-  useEffect(() => {
-    if (current === "bun")
-      bunRef.current.scrollIntoView({ block: "start", behavior: "smooth" });
-    if (current === "sauce")
-      sauceRef.current.scrollIntoView({ block: "start", behavior: "smooth" });
-    if (current === "main")
-      mainRef.current.scrollIntoView({ block: "start", behavior: "smooth" });
-  }, [current]);
 
   return (
     <section className={`${ingredientsStyle.ingredients} pb-10 mr-10`}>
