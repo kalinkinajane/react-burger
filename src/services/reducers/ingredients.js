@@ -3,6 +3,7 @@ import {
   ADD_BUN,
   DELETE_INGREDIENT_BURGER,
   UPDATE_INGREDIENTS_CONSTRUCTOR,
+  CLEAR_INGREDIENTS_CONSTRUCTOR,
 } from "../actions/ingredients-constructor";
 
 const initialState = {
@@ -36,6 +37,13 @@ export const ingredientsConstructorReduser = (state = initialState, action) => {
       return {
         ...state,
         ingredients: action.payload,
+      };
+    }
+    case CLEAR_INGREDIENTS_CONSTRUCTOR: {
+      return {
+        ...state,
+        ingredients: [],
+        bun: null,
       };
     }
     default: {

@@ -6,10 +6,14 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import AppHeader from "../header/app-header";
 import BurgerIngredints from "../burger-ingredients/burger-ingredints";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import Modal from "../modal/modal";
 import OrderDetails from "../modal/components/order-details/order-details";
 import IngredientDetails from "../modal/components/ingredient-details/ingredient-details";
 
-import { addIngredient, removeIngredient } from "../../services/actions/details";
+import {
+  addIngredient,
+  removeIngredient,
+} from "../../services/actions/details";
 
 import appStyles from "./app.module.css";
 
@@ -46,14 +50,12 @@ function App() {
           <BurgerConstructor openOrderDetails={openModal} />
         </DndProvider>
       </main>
-      <OrderDetails isOpen={isOpenOrderDetails} closeModal={closeModal} />
-      {ingredient && (
-        <IngredientDetails
-          isOpen={isOpenIngredientDetails}
-          closeModal={closeModal}
-          ingredient={ingredient}
-        />
-      )}
+      <Modal isOpen={isOpenOrderDetails} closeModal={closeModal}>
+        <OrderDetails />
+      </Modal>
+      <Modal title="Детали ингредиента" isOpen={isOpenIngredientDetails} closeModal={closeModal}>
+        {ingredient && <IngredientDetails ingredient={ingredient} />}
+      </Modal>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import { createOrder } from "../../utils/api";
+import { clearIngredients } from "./ingredients-constructor";
 
 export const GET_ORDERDETAILS_REQUEST = "GET_ORDERDETAILS_REQUEST";
 export const GET_ORDERDETAILS_SUCCESS = "GET_ORDERDETAILS_SUCCESS";
@@ -24,6 +25,7 @@ export const createOrderDetails = (ids) => {
       .then((res) => {
         if (res && res.success) {
           dispatch(getOrderSuccess(res));
+          dispatch(clearIngredients());
         } else {
           dispatch(getOrderFailed());
         }

@@ -33,7 +33,7 @@ const Modal = ({ title = '', children, isOpen, closeModal }) => {
             <CloseIcon type="primary" />
           </button>
         </div>
-        <div className={modalStyle.contant}>{children}</div>
+        <div>{children}</div>
       </div>
     </ModalOverlay>,
     document.getElementById("react-modals")
