@@ -4,8 +4,9 @@
   align-items: flex-end;
   flex-direction: column;
   padding-bottom: 52px;
+  border-radius: 40px;
 }
-.container{
+.container {
   height: 80px;
 }
 .cost {
@@ -15,5 +16,7 @@
 .result {
   display: flex;
   align-items: center;
-
+}
+.onHover {
+  box-shadow: 0 6px 20px 0 rgba(133, 133, 173, 0.3);
 }

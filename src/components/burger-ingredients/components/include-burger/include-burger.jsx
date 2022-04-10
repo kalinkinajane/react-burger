@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-import { ingredientsPropTypes } from "../../utils/types";
+import { ingredientsPropTypes } from "../../../../utils/types";
 
 import IngredientItem from "../ingredient-item/ingredient-item";
 

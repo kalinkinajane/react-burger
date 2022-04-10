@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from "react"; 
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-import { requestApi } from "../../utils/api";
 import AppHeader from "../header/app-header";
 import BurgerIngredints from "../burger-ingredients/burger-ingredints";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import OrderDetails from "../order-details/order-details";
-import IngredientDetails from "../ingredient-details/ingredient-details";
+import Modal from "../modal/modal";
+import OrderDetails from "../modal/components/order-details/order-details";
+import IngredientDetails from "../modal/components/ingredient-details/ingredient-details";
+
+import {
+  addIngredient,
+  removeIngredient,
+} from "../../services/actions/details";
 
 import appStyles from "./app.module.css";
 
 function App() {
-  const [data, setData] = useState([]);
   const [isOpenOrderDetails, setOpenOrderDetails] = useState(false);
   const [isOpenIngredientDetails, setOpenIngredientDetails] = useState(false);
-  const [ingredient, setIngredient] = useState(null);
 
-  useEffect(() => {
-    requestApi()
-      .then((data) => setData(data.data))
-      .catch((err) => console.log(err));
-  }, []);
+  const ingredient = useSelector(
+    (store) => store.ingredientDetail.viewIngredient
+  );
+  const dispatch = useDispatch();
 
   const openModal = () => {
     setOpenOrderDetails(!isOpenOrderDetails);
@@ -28,10 +33,11 @@ function App() {
   const closeModal = () => {
     setOpenOrderDetails(false);
     setOpenIngredientDetails(false);
+    dispatch(removeIngredient());
   };
 
   const openIngredientDetails = (card) => {
-    setIngredient(card);
+    dispatch(addIngredient(card));
     setOpenIngredientDetails(!isOpenIngredientDetails);
   };
 
@@ -39,20 +45,17 @@ function App() {
     <div className={appStyles.app}>
       <AppHeader />
       <main className={appStyles.main}>
-        <BurgerIngredints
-          ingredients={data}
-          onCardClick={openIngredientDetails}
-        />
-        <BurgerConstructor selectIngredients={data} openOrderDetails={openModal} />
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredints onCardClick={openIngredientDetails} />
+          <BurgerConstructor openOrderDetails={openModal} />
+        </DndProvider>
       </main>
-      <OrderDetails isOpen={isOpenOrderDetails} closeModal={closeModal} />
-      {ingredient && (
-        <IngredientDetails
-          isOpen={isOpenIngredientDetails}
-          closeModal={closeModal}
-          ingredient={ingredient}
-        />
-      )}
+      <Modal isOpen={isOpenOrderDetails} closeModal={closeModal}>
+        <OrderDetails />
+      </Modal>
+      <Modal title="Детали ингредиента" isOpen={isOpenIngredientDetails} closeModal={closeModal}>
+        {ingredient && <IngredientDetails ingredient={ingredient} />}
+      </Modal>
     </div>
   );
 }

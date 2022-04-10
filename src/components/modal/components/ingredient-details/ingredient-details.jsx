@@ -1,14 +1,11 @@
-import PropTypes from "prop-types";
-
-import { ingredientsPropTypes } from "../../utils/types";
-
-import Modal from "../modal/modal";
+import { ingredientsPropTypes } from "../../../../utils/types";
 
 import ingredientStyle from "./ingredient-details.module.css";
+import modalStyle from "../../modal.module.css";
 
-const IngredientDetails = ({ isOpen, closeModal, ingredient }) => {
+const IngredientDetails = ({ ingredient }) => {
   return (
-    <Modal title="Детали ингредиента" isOpen={isOpen} closeModal={closeModal}>
+    <div className={modalStyle.contant}>
       <img src={ingredient.image_large} alt={ingredient.name} />
       <p className="text text_type_main-medium mt-4 mb-8">{ingredient.name}</p>
       <div className={`${ingredientStyle.contant}`}>
@@ -45,13 +42,11 @@ const IngredientDetails = ({ isOpen, closeModal, ingredient }) => {
           </span>
         </div>
       </div>
-    </Modal>
+    </div>
   );
 };
 
 IngredientDetails.propTypes = {
-  isOpen: PropTypes.bool,
-  closeModal: PropTypes.func.isRequired,
   ingredient: ingredientsPropTypes.isRequired,
 };
 

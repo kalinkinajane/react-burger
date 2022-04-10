@@ -1,12 +1,24 @@
-const url = "https://norma.nomoreparties.space/api/ingredients ";
+import { baseUrl } from "../constants/constants";
+
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(res.status);
+}
 
 export const requestApi = () => {
-  return fetch(url, {
+  return fetch(`${baseUrl}/ingredients`, {
     method: "GET",
-  }).then((res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(res.status);
-  });
+  }).then(checkResponse);
+};
+
+export const createOrder = (ids) => {
+  return fetch(`${baseUrl}/orders`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(ids),
+  }).then(checkResponse);
 };

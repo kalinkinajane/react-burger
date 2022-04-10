@@ -1,17 +1,19 @@
-import PropTypes from "prop-types";
+import React from "react";
+import { useSelector } from "react-redux";
 
-import Modal from "../modal/modal";
-import imgDatails from "../../images/image.png";
+import imgDatails from "../../../../images/image.png";
 
 import detailStyle from "./order-details.module.css";
+import modalStyle from "../../modal.module.css";
 
+const OrderDetails = () => {
+  const details = useSelector((store) => store.orderDetail.orderDetail);
 
-
-const OrderDetails = (props) => {
+  if (!details) return null;
   return (
-    <Modal {...props}>
+    <div className={modalStyle.contant}>
       <p className={`${detailStyle.count} text text_type_digits-large mb-8`}>
-        034536
+        {details.order.number}
       </p>
       <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
       <img className="mt-2 mb-2" src={imgDatails} alt="" />
@@ -21,14 +23,8 @@ const OrderDetails = (props) => {
       <p className="text text_type_main-default text_color_inactive mb-20">
         Дождитесь готовности на орбитальной станции
       </p>
-    </Modal>
+    </div>
   );
-};
-
-OrderDetails.propTypes = {
-  title: PropTypes.string,
-  isOpen: PropTypes.bool,
-  closeModal: PropTypes.func.isRequired,
 };
 
 export default OrderDetails;
