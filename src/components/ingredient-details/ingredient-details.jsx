@@ -1,11 +1,11 @@
-import { ingredientsPropTypes } from "../../../../utils/types";
+import { ingredientsPropTypes } from "../../utils/types";
 
 import ingredientStyle from "./ingredient-details.module.css";
-import modalStyle from "../../modal.module.css";
 
 const IngredientDetails = ({ ingredient }) => {
   return (
-    <div className={modalStyle.contant}>
+    <div className={ingredientStyle.container}>
+       <h2 className="text text_type_main-large mt-30">Детали ингредиента</h2>
       <img src={ingredient.image_large} alt={ingredient.name} />
       <p className="text text_type_main-medium mt-4 mb-8">{ingredient.name}</p>
       <div className={`${ingredientStyle.contant}`}>

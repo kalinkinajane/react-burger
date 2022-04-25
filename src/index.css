@@ -12,3 +12,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+form .input.input_size_default{
+  width: 480px ;
+  margin: 24px 0;
+}
+a {
+  text-decoration: none;
+  /* color: #4c4cff; */
+}

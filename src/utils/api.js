@@ -1,11 +1,6 @@
 import { baseUrl } from "../constants/constants";
+import { checkResponse } from "./check-response";
 
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(res.status);
-}
 
 export const requestApi = () => {
   return fetch(`${baseUrl}/ingredients`, {

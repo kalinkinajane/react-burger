@@ -1,0 +1,18 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 640px;
+  margin: auto ;
+}
+.contant {
+  display: flex;
+ 
+  
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
