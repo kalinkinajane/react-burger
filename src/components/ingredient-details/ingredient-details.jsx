@@ -1,19 +1,12 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
-import { getItems } from "../../services/actions/items-burger";
 
 import ingredientStyle from "./ingredient-details.module.css";
 
 const IngredientDetails = () => {
-  let { id } = useParams();
+  const { id } = useParams();
   const { items } = useSelector((store) => store.itemsBurger);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getItems());
-  }, [dispatch]);
 
   const ingredient = items.find((item) => item._id === id);
 

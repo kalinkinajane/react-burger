@@ -15,6 +15,7 @@ import {
   ForgotPasswordPage,
   ResetPasswordPage,
   ProfilePage,
+  NotFound404,
 } from "../../pages";
 
 import {
@@ -22,9 +23,9 @@ import {
   removeIngredient,
 } from "../../services/actions/details";
 import { getUserData } from "../../services/actions/auth";
+import { getItems } from "../../services/actions/items-burger";
 
 import appStyles from "./app.module.css";
-import { NotFound404 } from "../../pages/not-found";
 
 export default function App() {
   const [isOpenOrderDetails, setOpenOrderDetails] = useState(false);
@@ -40,6 +41,7 @@ export default function App() {
   };
 
   useEffect(() => {
+    dispatch(getItems());
     dispatch(getUserData());
   }, [dispatch]);
 

@@ -30,7 +30,7 @@ export const ResetPasswordPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let { password, code } = data;
+    const { password, code } = data;
     resetPassword(password, code)
       .then((data) => {
         if (data.success) {

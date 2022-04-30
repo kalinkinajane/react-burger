@@ -5,6 +5,7 @@ import { ProfilePage } from "./profile-page.jsx";
 import { RegisterPage } from "./register-page.jsx";
 import { ResetPasswordPage } from "./reset-password-page.jsx";
 import { IngredientPage } from "./ingredient-page";
+import { NotFound404 } from "./not-found";
 
 export {
   MainPage,
@@ -14,4 +15,5 @@ export {
   RegisterPage,
   ResetPasswordPage,
   IngredientPage,
+  NotFound404,
 };

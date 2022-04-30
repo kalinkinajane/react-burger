@@ -15,7 +15,7 @@ const IngredientItem = ({ ingredient, onCardClick }) => {
   const { image, name, price, _id } = ingredient;
   const { ingredients, bun } = useSelector((store) => store.ingredients);
 
-  let location = useLocation();
+  const location = useLocation();
 
   const count = [...ingredients, bun].filter(
     (item) => item && item._id === _id

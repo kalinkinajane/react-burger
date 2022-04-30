@@ -6,19 +6,21 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { logoutDataUser, updateUserData } from "../services/actions/auth";
-
+import {
+  getUserData,
+  logoutDataUser,
+  updateUserData,
+} from "../services/actions/auth";
 import pageStyle from "./page.module.css";
 
 export const ProfilePage = () => {
   const [isEditeInput, setIsEditeInput] = useState(false);
-
   const [data, setData] = useState({
     name: "",
     email: "",
     password: "",
   });
-
+ 
   const dispatch = useDispatch();
   const { userProfile } = useSelector((store) => store.authDataUser);
 
@@ -51,12 +53,16 @@ export const ProfilePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let { name, email } = data;
+    const { name, email } = data;
     dispatch(updateUserData(name, email));
     setIsEditeInput(false);
     inputNameRef.current.disabled = true;
     inputEmailRef.current.disabled = true;
   };
+
+  useEffect(() => {
+    dispatch(getUserData());
+  }, [dispatch]);
 
   useEffect(() => {
     if (userProfile) {
@@ -115,7 +121,7 @@ export const ProfilePage = () => {
             icon={"EditIcon"}
           />
           <Input
-            onChange={handleChange}
+           onChange={handleChange}
             type={"email"}
             placeholder={"E-mail"}
             value={data.email}
