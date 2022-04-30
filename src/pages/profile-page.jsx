@@ -7,7 +7,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import {
-  getUserData,
   logoutDataUser,
   updateUserData,
 } from "../services/actions/auth";
@@ -59,10 +58,6 @@ export const ProfilePage = () => {
     inputNameRef.current.disabled = true;
     inputEmailRef.current.disabled = true;
   };
-
-  useEffect(() => {
-    dispatch(getUserData());
-  }, [dispatch]);
 
   useEffect(() => {
     if (userProfile) {
