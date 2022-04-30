@@ -1,5 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useHistory, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import {
   Button,
@@ -7,18 +8,41 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import pageStyle from "./page.module.css";
+import { forgotPassword } from "../utils/authApi";
 
 export const ForgotPasswordPage = () => {
-  const [data, setData] = React.useState('');
+  const { isLogin } = useSelector((store) => store.authDataUser);
+  const history = useHistory();
+  const [data, setData] = useState("");
 
   const handleChange = (e) => {
     setData(e.target.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    forgotPassword(data)
+      .then((data) => {
+        if (data.success) {
+          history.push("/reset-password");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  if (isLogin) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+        }}
+      />
+    );
+  }
   return (
     <div className={pageStyle.container}>
       <h2 className="text text_type_main-medium">Восстановление пароля</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Input
           type={"email"}
           placeholder={"Укажите e-mail"}
@@ -27,8 +51,8 @@ export const ForgotPasswordPage = () => {
           name={"email"}
         />
 
-        <Button type="primary" size="medium">
-        Восстановить
+        <Button type="primary" htmlType="submit" size="medium">
+          Восстановить
         </Button>
       </form>
       <div className="text text_type_main-default mt-20">

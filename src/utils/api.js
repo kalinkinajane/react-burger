@@ -1,6 +1,6 @@
 import { baseUrl } from "../constants/constants";
 import { checkResponse } from "./check-response";
-
+import { getCookie } from "./utilsCookie";
 
 export const requestApi = () => {
   return fetch(`${baseUrl}/ingredients`, {
@@ -13,6 +13,7 @@ export const createOrder = (ids) => {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      Authorization: getCookie("accessToken"),
     },
     body: JSON.stringify(ids),
   }).then(checkResponse);

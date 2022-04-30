@@ -1,14 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
 
 import {
   Button,
   Input,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import { registerUser } from "../services/actions/auth";
 
 import pageStyle from "./page.module.css";
 
 export const RegisterPage = () => {
+  const { isLogin } = useSelector((store) => store.authDataUser);
+  const dispatch = useDispatch();
+
   const [data, setData] = React.useState({
     name: "",
     email: "",
@@ -23,16 +30,24 @@ export const RegisterPage = () => {
     });
   };
 
-  const inputRef = React.useRef(null);
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(registerUser(data));
   };
 
+  if (isLogin) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+        }}
+      />
+    );
+  }
   return (
     <div className={pageStyle.container}>
       <h2 className="text text_type_main-medium">Регистрация</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Input
           type={"text"}
           placeholder={"Имя"}
@@ -47,17 +62,12 @@ export const RegisterPage = () => {
           value={data.email}
           name={"email"}
         />
-        <Input
-          type={"password"}
-          placeholder={"Пароль"}
+        <PasswordInput
           onChange={handleChange}
-          icon={"ShowIcon"}
           value={data.password}
           name={"password"}
-          ref={inputRef}
-          onIconClick={onIconClick}
         />
-        <Button type="primary" size="medium">
+        <Button type="primary" htmlType="submit" size="medium">
           Зарегистрироваться
         </Button>
       </form>

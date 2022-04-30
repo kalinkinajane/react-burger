@@ -25,3 +25,11 @@
   display: flex;
   flex-grow: 1;
 }
+.linkNav {
+  composes: flexible;
+  text-decoration: none;
+  color: #8585ad;
+}
+.activeLink {
+  color: #f2f2f3;
+}

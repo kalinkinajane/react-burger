@@ -1,11 +1,25 @@
-import { ingredientsPropTypes } from "../../utils/types";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
+
+import { getItems } from "../../services/actions/items-burger";
 
 import ingredientStyle from "./ingredient-details.module.css";
 
-const IngredientDetails = ({ ingredient }) => {
+const IngredientDetails = () => {
+  let { id } = useParams();
+  const { items } = useSelector((store) => store.itemsBurger);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getItems());
+  }, [dispatch]);
+
+  const ingredient = items.find((item) => item._id === id);
+
+  if (!ingredient) return null;
   return (
     <div className={ingredientStyle.container}>
-       <h2 className="text text_type_main-large mt-30">Детали ингредиента</h2>
       <img src={ingredient.image_large} alt={ingredient.name} />
       <p className="text text_type_main-medium mt-4 mb-8">{ingredient.name}</p>
       <div className={`${ingredientStyle.contant}`}>
@@ -44,10 +58,6 @@ const IngredientDetails = ({ ingredient }) => {
       </div>
     </div>
   );
-};
-
-IngredientDetails.propTypes = {
-  ingredient: ingredientsPropTypes.isRequired,
 };
 
 export default IngredientDetails;

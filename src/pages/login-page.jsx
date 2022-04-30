@@ -1,17 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import {
   Button,
   Input,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import pageStyle from "./page.module.css";
+import { loginUser } from "../services/actions/auth";
 
 export const LoginPage = () => {
-  const [data, setData] = React.useState({
+  const { isLogin} = useSelector((store) => store.authDataUser);
+  const dispatch = useDispatch();
+  const { state } = useLocation();
+  const [data, setData] = useState({
     email: "",
     password: "",
   });
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({
@@ -19,16 +26,24 @@ export const LoginPage = () => {
       [name]: value,
     });
   };
-  const inputRef = React.useRef(null);
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(loginUser(data));
   };
+
+  if (isLogin) {
+    return (
+      <Redirect
+      to={ state?.from || '/' }
+      />
+    );
+  }
 
   return (
     <div className={pageStyle.container}>
       <h2 className="text text_type_main-medium">Вход</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <Input
           type={"email"}
           placeholder={"E-mail"}
@@ -36,17 +51,12 @@ export const LoginPage = () => {
           value={data.email}
           name={"email"}
         />
-        <Input
-          type={"password"}
-          placeholder={"Пароль"}
+        <PasswordInput
           onChange={handleChange}
-          icon={"ShowIcon"}
           value={data.password}
           name={"password"}
-          ref={inputRef}
-          onIconClick={onIconClick}
         />
-        <Button type="primary" size="medium">
+        <Button type="primary" htmlType="submit" size="medium">
           Войти
         </Button>
       </form>

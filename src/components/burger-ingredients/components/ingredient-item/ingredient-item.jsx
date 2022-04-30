@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
-import { Link, useRouteMatch } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Counter,
   CurrencyIcon,
@@ -14,7 +14,8 @@ import ingredientStyle from "./ingredient-item.module.css";
 const IngredientItem = ({ ingredient, onCardClick }) => {
   const { image, name, price, _id } = ingredient;
   const { ingredients, bun } = useSelector((store) => store.ingredients);
-  const { url } = useRouteMatch();
+
+  let location = useLocation();
 
   const count = [...ingredients, bun].filter(
     (item) => item && item._id === _id
@@ -39,7 +40,13 @@ const IngredientItem = ({ ingredient, onCardClick }) => {
       onClick={handleClick}
       style={{ opacity }}
     >
-      <Link to={`${url}ingredients/${_id}`} className={ingredientStyle.link}>
+      <Link
+        to={{
+          pathname: `/ingredients/${_id}`,
+          state: { background: location },
+        }}
+        className={ingredientStyle.link}
+      >
         {count ? <Counter count={count} size="default" /> : ""}
         <img
           className={`${ingredientStyle.image} ml-4 mr-4`}

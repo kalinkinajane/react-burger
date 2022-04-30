@@ -1,14 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import {
   Button,
   Input,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import { resetPassword } from "../utils/authApi";
 
 import pageStyle from "./page.module.css";
 
 export const ResetPasswordPage = () => {
+  const { isLogin } = useSelector((store) => store.authDataUser);
+  const history = useHistory();
   const [data, setData] = React.useState({
     password: "",
     code: "",
@@ -22,35 +28,44 @@ export const ResetPasswordPage = () => {
     });
   };
 
-  const inputRef = React.useRef(null);
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let { password, code } = data;
+    resetPassword(password, code)
+      .then((data) => {
+        if (data.success) {
+          history.push("/login");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
+  if (isLogin) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+        }}
+      />
+    );
+  }
   return (
     <div className={pageStyle.container}>
       <h2 className="text text_type_main-medium">Восстановление пароля</h2>
-      <form>
-        <Input
-          type={"password"}
-          placeholder={"Введите новый пароль"}
+      <form onSubmit={handleSubmit}>
+        <PasswordInput
           onChange={handleChange}
-          icon={"ShowIcon"}
           value={data.password}
           name={"password"}
-          ref={inputRef}
-          onIconClick={onIconClick}
         />
         <Input
-          type={"text"}
           placeholder={"Введите код из письма"}
           onChange={handleChange}
           value={data.code}
-          name={"email"}
+          name={"code"}
         />
 
-        <Button type="primary" size="medium">
+        <Button type="primary" htmlType="submit" size="medium">
           Сохранить
         </Button>
       </form>

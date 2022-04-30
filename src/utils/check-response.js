@@ -1,6 +1,4 @@
-export function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(res.status);
+export const checkResponse=(res)=> {
+  return res.ok ? res.json() : res.json().then((err)=> Promise.reject(err))
+  
 }

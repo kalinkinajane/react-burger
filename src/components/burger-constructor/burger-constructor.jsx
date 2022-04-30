@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
@@ -10,17 +11,20 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import BurgerElements from "./components/burger-elements";
-
-
-import constructorStyle from "./burger-constructor.module.css";
-import { addBun, addIngredients } from "../../services/actions/ingredients-constructor";
+import {
+  addBun,
+  addIngredients,
+} from "../../services/actions/ingredients-constructor";
 import { createOrderDetails } from "../../services/actions/order";
 
+import constructorStyle from "./burger-constructor.module.css";
 
 const BurgerConstructor = ({ openOrderDetails }) => {
+  const { isLogin } = useSelector((store) => store.authDataUser);
   const [ingredientsId, setIngredientsId] = useState({ ingredients: [] });
   const { ingredients, bun } = useSelector((store) => store.ingredients);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [{ isHover }, dropTargerRef] = useDrop({
     accept: "ingredient",
@@ -39,18 +43,29 @@ const BurgerConstructor = ({ openOrderDetails }) => {
     setIngredientsId({ ingredients: newData });
   }, [ingredients]);
 
-  const countBun = bun ? bun.price * 2 : 0
-  const countPrice = ingredients.reduce((sum, current) => sum + current.price, 0) + countBun;
+  const countBun = bun ? bun.price * 2 : 0;
+  const countPrice =
+    ingredients.reduce((sum, current) => sum + current.price, 0) + countBun;
 
   const handleCreateOrderDetails = () => {
-    dispatch(createOrderDetails(ingredientsId));
-    openOrderDetails();
+    if (ingredients.length === 0) {
+      return;
+    }
+
+    if (isLogin) {
+      dispatch(createOrderDetails(ingredientsId));
+      openOrderDetails();
+    } else {
+      history.push("/login");
+    }
   };
 
   return (
     <section
       ref={dropTargerRef}
-      className={`${constructorStyle.constructor} ${isHover ? constructorStyle.onHover : ''} mt-15 pt-10 pb-10`}
+      className={`${constructorStyle.constructor} ${
+        isHover ? constructorStyle.onHover : ""
+      } mt-15 pt-10 pb-10`}
     >
       <div className={`${constructorStyle.container} mr-4`}>
         {bun && (
@@ -78,7 +93,9 @@ const BurgerConstructor = ({ openOrderDetails }) => {
 
       <div className={`${constructorStyle.result} mt-10 mr-4`}>
         <div className={`${constructorStyle.cost} mr-10`}>
-          <p className="text text_type_digits-medium mr-2">{countPrice ? countPrice : ''}</p>
+          <p className="text text_type_digits-medium mr-2">
+            {countPrice ? countPrice : ""}
+          </p>
           <CurrencyIcon type="primary" />
         </div>
         <Button onClick={handleCreateOrderDetails} type="primary" size="medium">
