@@ -1,11 +1,18 @@
-import { ingredientsPropTypes } from "../../../../utils/types";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 import ingredientStyle from "./ingredient-details.module.css";
-import modalStyle from "../../modal.module.css";
 
-const IngredientDetails = ({ ingredient }) => {
+const IngredientDetails = () => {
+  const { id } = useParams();
+  const { items } = useSelector((store) => store.itemsBurger);
+
+  const ingredient = items.find((item) => item._id === id);
+
+  if (!ingredient) return null;
   return (
-    <div className={modalStyle.contant}>
+    <div className={ingredientStyle.container}>
       <img src={ingredient.image_large} alt={ingredient.name} />
       <p className="text text_type_main-medium mt-4 mb-8">{ingredient.name}</p>
       <div className={`${ingredientStyle.contant}`}>
@@ -44,10 +51,6 @@ const IngredientDetails = ({ ingredient }) => {
       </div>
     </div>
   );
-};
-
-IngredientDetails.propTypes = {
-  ingredient: ingredientsPropTypes.isRequired,
 };
 
 export default IngredientDetails;

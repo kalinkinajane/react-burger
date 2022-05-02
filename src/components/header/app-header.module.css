@@ -19,4 +19,17 @@
 .navigation {
   composes: flexible;
   width: 383px;
+  margin-right: 112px;
+}
+.logo {
+  display: flex;
+  flex-grow: 1;
+}
+.linkNav {
+  composes: flexible;
+  text-decoration: none;
+  color: #8585ad;
+}
+.activeLink {
+  color: #f2f2f3;
 }

@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState, useRef } from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import IncludeBurger from "./components/include-burger/include-burger";
-import { getItems } from "../../services/actions/items-burger";
 import { tabTypes } from "../../constants/constants";
 
 import ingredientsStyle from "./burger-ingredints.module.css";
@@ -16,11 +15,6 @@ const filterIngredients = (arr, type) => {
 
 const BurgerIngredints = ({ onCardClick }) => {
   const ingredients = useSelector((store) => store.itemsBurger.items);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getItems());
-  }, [dispatch]);
 
   const ingredientsBun = filterIngredients(ingredients, "bun");
   const ingredientsSauce = filterIngredients(ingredients, "sauce");

@@ -8,7 +8,6 @@ import { ingredientsPropTypes } from "../../../utils/types";
 
 import elementsStyle from "./burger-elements.module.css";
 
-
 const BurgerElements = ({ ingredients }) => {
   const dispatch = useDispatch();
 

@@ -7,7 +7,7 @@ import ModalOverlay from "./components/modal-overlay/modal-overlay";
 
 import modalStyle from "./modal.module.css";
 
-const Modal = ({ title = '', children, isOpen, closeModal }) => {
+const Modal = ({ title = "", children, closeModal }) => {
   function handleESCclose(evt) {
     if (evt.key === "Escape") {
       closeModal();
@@ -19,11 +19,9 @@ const Modal = ({ title = '', children, isOpen, closeModal }) => {
     return () => {
       document.removeEventListener("keydown", handleESCclose);
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!isOpen) return null;
-  
   return ReactDOM.createPortal(
     <ModalOverlay closeModal={closeModal}>
       <div className={`${modalStyle.modal} pt-10 pl-10 pr-10 pb-15`}>
@@ -43,7 +41,6 @@ const Modal = ({ title = '', children, isOpen, closeModal }) => {
 Modal.propTypes = {
   title: PropTypes.string,
   children: PropTypes.node,
-  isOpen: PropTypes.bool,
   closeModal: PropTypes.func,
 };
 
