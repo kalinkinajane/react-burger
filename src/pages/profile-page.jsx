@@ -94,7 +94,7 @@ export const ProfilePage = () => {
           <li className={pageStyle.navigationItem}>
             <Link
               className={pageStyle.linkNav}
-              to="/"
+              to="/login"
               onClick={() => dispatch(logoutDataUser())}
             >
               Выход
