@@ -6,18 +6,16 @@ import ModalOverlay from "./components/modal-overlay/modal-overlay";
 
 import modalStyle from "./modal.module.css";
 
-type TModalProps ={
+type TModalProps = {
   title?: string;
-  closeModal: ()=> void;
+  closeModal: () => void;
 }
-type TEvent ={
-  keyCode: number;
-}
+
 const PortalModal = document.getElementById("react-modals")
 
 const Modal: FC<TModalProps> = ({ title = "", children, closeModal }) => {
-  function handleESCclose(evt : TEvent) {
-    if (evt.keyCode === 27) {
+  function handleESCclose(evt: KeyboardEvent) {
+    if (evt.key === 'Escape') {
       closeModal();
     }
   }
