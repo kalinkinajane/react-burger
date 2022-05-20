@@ -1,25 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+
 import {
   Button,
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import pageStyle from "./page.module.css";
-import { loginUser } from "../services/actions/auth";
+import { registerUser } from "../services/actions/auth";
 
-export const LoginPage = () => {
-  const { isLogin} = useSelector((store) => store.authDataUser);
+import pageStyle from "./page.module.css";
+import { TDataFormRegister } from "../utils/type";
+
+export const RegisterPage = () => {
+  const { registration } = useSelector((store: any) => store.authDataUser);
   const dispatch = useDispatch();
-  const { state } = useLocation();
-  const [data, setData] = useState({
+
+  const [data, setData] = React.useState<TDataFormRegister>({
+    name: "",
     email: "",
     password: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e:React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setData({
       ...data,
@@ -27,23 +31,31 @@ export const LoginPage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUser(data));
+    dispatch(registerUser(data));
   };
 
-  if (isLogin) {
+  if (registration) {
     return (
       <Redirect
-      to={ state?.from || '/' }
+        to={{
+          pathname: "/login",
+        }}
       />
     );
   }
-
   return (
     <div className={pageStyle.container}>
-      <h2 className="text text_type_main-medium">Вход</h2>
+      <h2 className="text text_type_main-medium">Регистрация</h2>
       <form onSubmit={handleSubmit}>
+        <Input
+          type={"text"}
+          placeholder={"Имя"}
+          onChange={handleChange}
+          value={data.name}
+          name={"name"}
+        />
         <Input
           type={"email"}
           placeholder={"E-mail"}
@@ -57,20 +69,14 @@ export const LoginPage = () => {
           name={"password"}
         />
         <Button type="primary" htmlType="submit" size="medium">
-          Войти
+          Зарегистрироваться
         </Button>
       </form>
       <div className="text text_type_main-default mt-20">
         <p className="text_color_inactive mb-4">
-          <span>Вы — новый пользователь? </span>
-          <Link className={pageStyle.link} to="/register">
-            Зарегистрироваться
-          </Link>
-        </p>
-        <p className="text_color_inactive mb-4">
-          <span>Забыли пароль? </span>
-          <Link className={pageStyle.link} to="/forgot-password">
-            Восстановить пароль
+          <span>Уже зарегистрированы? </span>
+          <Link className={pageStyle.link} to="/login">
+            Войти
           </Link>
         </p>
       </div>

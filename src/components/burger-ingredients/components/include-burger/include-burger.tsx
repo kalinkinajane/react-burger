@@ -1,12 +1,15 @@
-import PropTypes from "prop-types";
-
-import { ingredientsPropTypes } from "../../../../utils/types";
+import { TIngredient } from "../../../../utils/type";
 
 import IngredientItem from "../ingredient-item/ingredient-item";
 
 import burgerStyle from "./include-burger.module.css";
 
-const IncludeBurger = ({ ingredients, onCardClick }) => {
+type TIncludeBurgerProps={
+  ingredients: Array<TIngredient>
+  onCardClick: (ingredient: TIngredient )=> void;
+}
+
+const IncludeBurger = ({ ingredients, onCardClick }: TIncludeBurgerProps) => {
   return (
     <div className={`${burgerStyle.items} pl-4`}>
       {ingredients &&
@@ -19,11 +22,6 @@ const IncludeBurger = ({ ingredients, onCardClick }) => {
         ))}
     </div>
   );
-};
-
-IncludeBurger.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
-  onCardClick: PropTypes.func.isRequired,
 };
 
 export default IncludeBurger;

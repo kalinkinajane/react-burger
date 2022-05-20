@@ -1,5 +1,4 @@
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -7,17 +6,22 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { ingredientItemPropTypes } from "../../../../utils/types";
-
 import ingredientStyle from "./ingredient-item.module.css";
+import { TIngredient } from "../../../../utils/type";
 
-const IngredientItem = ({ ingredient, onCardClick }) => {
+
+type TIngredientItemProps = {
+  ingredient: TIngredient;
+  onCardClick: (ingredient: TIngredient) => void;
+}
+
+const IngredientItem = ({ ingredient, onCardClick }: TIngredientItemProps) => {
   const { image, name, price, _id } = ingredient;
-  const { ingredients, bun } = useSelector((store) => store.ingredients);
+  const { ingredients, bun } = useSelector((store: any) => store.ingredients);
 
   const location = useLocation();
 
-  const count = [...ingredients, bun].filter(
+  const count: number = [...ingredients, bun].filter(
     (item) => item && item._id === _id
   ).length;
 
@@ -61,11 +65,6 @@ const IngredientItem = ({ ingredient, onCardClick }) => {
       </Link>
     </div>
   );
-};
-
-IngredientItem.propTypes = {
-  ingredient: ingredientItemPropTypes.isRequired,
-  onCardClick: PropTypes.func.isRequired,
 };
 
 export default IngredientItem;

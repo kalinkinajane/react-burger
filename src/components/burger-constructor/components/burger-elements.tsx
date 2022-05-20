@@ -1,18 +1,22 @@
 import React, { useCallback } from "react";
-import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 
 import Ingredient from "./ingredient";
 import { updateIngredients } from "../../../services/actions/ingredients-constructor";
-import { ingredientsPropTypes } from "../../../utils/types";
+
+import { TIngredient } from "../../../utils/type";
 
 import elementsStyle from "./burger-elements.module.css";
 
-const BurgerElements = ({ ingredients }) => {
+type TBurgerElementsProps = {
+  ingredients: Array<TIngredient>
+}
+
+const BurgerElements = ({ ingredients }: TBurgerElementsProps) => {
   const dispatch = useDispatch();
 
   const moveCard = useCallback(
-    (dragIndex, hoverIndex) => {
+    (dragIndex: number, hoverIndex: number) => {
       const dragCard = ingredients[dragIndex];
       const newCards = [...ingredients];
 
@@ -27,7 +31,7 @@ const BurgerElements = ({ ingredients }) => {
   return (
     <div className={`${elementsStyle.elements} mt-4 mb-4`}>
       {ingredients &&
-        ingredients.map((item, index) => (
+        ingredients.map((item: TIngredient, index: number) => (
           <Ingredient
             key={item.itemId}
             item={item}
@@ -37,10 +41,6 @@ const BurgerElements = ({ ingredients }) => {
         ))}
     </div>
   );
-};
-
-BurgerElements.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientsPropTypes).isRequired,
 };
 
 export default BurgerElements;

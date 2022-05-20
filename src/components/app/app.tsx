@@ -25,11 +25,14 @@ import {
 import { getUserData } from "../../services/actions/auth";
 import { getItems } from "../../services/actions/items-burger";
 
+import { TLocation, TIngredient } from "../../utils/type";
+
 import appStyles from "./app.module.css";
-import { TLocation } from "../../utils/type";
+import { getCookie } from "../../utils/utilsCookie";
+
 
 export default function App() {
-  const [isOpenOrderDetails, setOpenOrderDetails] = useState(false);
+  const [isOpenOrderDetails, setOpenOrderDetails] = useState<boolean>(false);
 
   const history = useHistory();
   const location = useLocation<TLocation>();
@@ -42,8 +45,9 @@ export default function App() {
   };
 
   useEffect(() => {
+    const token = getCookie("accessToken")
     dispatch(getItems());
-    dispatch(getUserData());
+    dispatch(getUserData(token));
   }, [dispatch]);
 
   const closeModalIngredients = () => {
@@ -55,7 +59,7 @@ export default function App() {
     dispatch(removeIngredient());
   };
 
-  const openIngredientDetails = (card: any) => {
+  const openIngredientDetails = (card: TIngredient) => {
     dispatch(addIngredient(card));
   };
 

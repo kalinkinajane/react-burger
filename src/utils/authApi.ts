@@ -1,8 +1,8 @@
 import { baseUrl, authUrl } from "../constants/constants";
 import { checkResponse } from "./check-response";
-import { getCookie } from "./utilsCookie";
+import { TDataForm, TDataFormRegister, TGetUser, TSuccessData, TSuccessMassage, TUserData } from "./type";
 
-export const register = (dataForm) => {
+export const register = (dataForm: TDataFormRegister) => {
   return fetch(`${authUrl}/register`, {
     method: "POST",
     headers: {
@@ -10,10 +10,10 @@ export const register = (dataForm) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(dataForm),
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TUserData>(res));
 };
 
-export const login = (dataForm) => {
+export const login = (dataForm: TDataForm) => {
   return fetch(`${authUrl}/login`, {
     method: "POST",
     headers: {
@@ -21,7 +21,7 @@ export const login = (dataForm) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(dataForm),
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TUserData>(res));
 };
 export const refresh = () => {
   return fetch(`${authUrl}/token`, {
@@ -31,29 +31,31 @@ export const refresh = () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TSuccessData>(res));
 };
 
-export const getUser = () => {
+
+export const getUser = (token: string) => {
   return fetch(`${authUrl}/user`, {
     method: "GET",
     headers: {
       Accept: "application/json",
-      Authorization: getCookie("accessToken"),
+      Authorization: token,
     },
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TGetUser>(res));
 };
 
-export const updateUser = (name, email) => {
+export const updateUser = (name: string, email: string, token: string) => {
   return fetch(`${authUrl}/user`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json;charset=utf-8",
-      Authorization: getCookie("accessToken"),
+      Authorization: token,
     },
     body: JSON.stringify({ email, name }),
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TGetUser>(res));
 };
+
 export const logoutUser = () => {
   return fetch(`${authUrl}/logout`, {
     method: "POST",
@@ -61,10 +63,10 @@ export const logoutUser = () => {
       "Content-Type": "application/json;charset=utf-8",
     },
     body: JSON.stringify({ token: localStorage.getItem("refreshToken") }),
-  }).then(checkResponse);
+  }).then(res => checkResponse<TSuccessMassage>(res));
 };
 
-export const forgotPassword = (email) => {
+export const forgotPassword = (email: string) => {
   return fetch(`${baseUrl}/password-reset`, {
     method: "POST",
     headers: {
@@ -72,10 +74,10 @@ export const forgotPassword = (email) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email }),
-  }).then(checkResponse);
+  }).then(res => checkResponse<TSuccessMassage>(res));
 };
 
-export const resetPassword = (password, token) => {
+export const resetPassword = (password: string, token: string) => {
   return fetch(`${baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: {
@@ -83,5 +85,5 @@ export const resetPassword = (password, token) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ password, token }),
-  }).then(checkResponse);
+  }).then(res => checkResponse<TSuccessMassage>(res));
 };

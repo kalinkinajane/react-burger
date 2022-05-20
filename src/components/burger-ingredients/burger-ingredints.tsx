@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import PropTypes from "prop-types";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -8,54 +7,61 @@ import IncludeBurger from "./components/include-burger/include-burger";
 import { tabTypes } from "../../constants/constants";
 
 import ingredientsStyle from "./burger-ingredints.module.css";
+import { TIngredient } from "../../utils/type";
 
-const filterIngredients = (arr, type) => {
+type TBurgerIngredintsProps = {
+  onCardClick: (ingredient: TIngredient) => void;
+}
+
+const filterIngredients = (arr: Array<TIngredient>, type: string) => {
   return arr.filter((item) => item.type === type);
 };
 
-const BurgerIngredints = ({ onCardClick }) => {
-  const ingredients = useSelector((store) => store.itemsBurger.items);
+const BurgerIngredints = ({ onCardClick }: TBurgerIngredintsProps) => {
+  const ingredients = useSelector((store: any) => store.itemsBurger.items);
 
   const ingredientsBun = filterIngredients(ingredients, "bun");
   const ingredientsSauce = filterIngredients(ingredients, "sauce");
   const ingredientsMain = filterIngredients(ingredients, "main");
 
   // Tabs
-  const [current, setCurrent] = useState(tabTypes.bunTab);
-  const containerRef = useRef(null);
-  const bunRef = useRef(null);
-  const sauceRef = useRef(null);
-  const mainRef = useRef(null);
+  const [current, setCurrent] = useState<string>(tabTypes.bunTab);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const bunRef = useRef<HTMLParagraphElement>(null);
+  const sauceRef = useRef<HTMLParagraphElement>(null);
+  const mainRef = useRef<HTMLParagraphElement>(null);
 
-  const changeTabs = (value, ref) => {
+  const changeTabs = (value: string, ref: any) => {
     setCurrent(value);
     ref.current.scrollIntoView({ behavior: "smooth" });
   };
 
   const scrollIngredients = () => {
-    const bunRange = Math.abs(
-      containerRef.current.getBoundingClientRect().top -
+    if (containerRef.current && bunRef.current && sauceRef.current && mainRef.current) {
+      const bunRange = Math.abs(
+        containerRef.current.getBoundingClientRect().top -
         bunRef.current.getBoundingClientRect().top
-    );
-    const sauceRange = Math.abs(
-      containerRef.current.getBoundingClientRect().top -
+      );
+      const sauceRange = Math.abs(
+        containerRef.current.getBoundingClientRect().top -
         sauceRef.current.getBoundingClientRect().top
-    );
-    const mainRange = Math.abs(
-      containerRef.current.getBoundingClientRect().top -
+      );
+      const mainRange = Math.abs(
+        containerRef.current.getBoundingClientRect().top -
         mainRef.current.getBoundingClientRect().top
-    );
+      );
 
-    const minRange = Math.min(bunRange, sauceRange, mainRange);
+      const minRange = Math.min(bunRange, sauceRange, mainRange);
 
-    const activeTab =
-      minRange === bunRange
-        ? tabTypes.bunTab
-        : minRange === sauceRange
-        ? tabTypes.sauceTab
-        : tabTypes.mainTab;
+      const activeTab =
+        minRange === bunRange
+          ? tabTypes.bunTab
+          : minRange === sauceRange
+            ? tabTypes.sauceTab
+            : tabTypes.mainTab;
 
-    setCurrent(activeTab);
+      setCurrent(activeTab);
+    }
   };
 
   return (
@@ -115,10 +121,6 @@ const BurgerIngredints = ({ onCardClick }) => {
       </div>
     </section>
   );
-};
-
-BurgerIngredints.propTypes = {
-  onCardClick: PropTypes.func.isRequired,
 };
 
 export default BurgerIngredints;

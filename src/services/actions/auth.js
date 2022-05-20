@@ -94,10 +94,10 @@ const refreshToken = (afterRefresh) => {
     });
   };
 };
-export const getUserData = () => {
+export const getUserData = (token) => {
   return function (dispatch) {
     dispatch(getUserRequest());
-    getUser()
+    getUser(token)
       .then((res) => {
         if (!res.success) throw res;
         dispatch(getUserSuccess(res));
@@ -110,10 +110,10 @@ export const getUserData = () => {
   };
 };
 
-export const updateUserData = (name, email) => {
+export const updateUserData = (name, email, token) => {
   return function (dispatch) {
     dispatch(getUserRequest());
-    updateUser(name, email)
+    updateUser(name, email, token)
       .then((res) => {
         if (res && res.success) {
           dispatch(getUserSuccess(res));

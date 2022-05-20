@@ -1,34 +1,41 @@
-import React, { useRef } from "react";
+import React, { useRef, FC } from "react";
 import { useDispatch } from "react-redux";
-import { useDrag, useDrop } from "react-dnd";
-import PropTypes from "prop-types";
+import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
 
 import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { ingredientsPropTypes } from "../../../utils/types";
 import { deleteIngredient } from "../../../services/actions/ingredients-constructor";
+
+import { TIngredient } from "../../../utils/type";
 
 import elementsStyle from "./burger-elements.module.css";
 
 
-const Ingredient = ({ item, index, moveCard }) => {
-  const ref = useRef(null);
+type TIngredientProps = {
+  item: TIngredient;
+  index: number;
+  moveCard: (dragIndex: number, hoverIndex: number) => void;
+}
+type TItemHover = {
+  id: string;
+  index: number;
+}
+
+const Ingredient: FC<TIngredientProps> = ({ item, index, moveCard }) => {
+  const ref = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
 
   const [{ handlerId }, drop] = useDrop({
     accept: "card",
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      };
-    },
-    hover(item, monitor) {
+
+    hover(item: TItemHover, monitor) {
       if (!ref.current) {
         return;
       }
+
       const dragIndex = item.index;
       const hoverIndex = index;
 
@@ -41,7 +48,7 @@ const Ingredient = ({ item, index, moveCard }) => {
       const hoverMiddleY =
         (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
 
-      const clientOffset = monitor.getClientOffset();
+      const clientOffset: any | null = monitor.getClientOffset();
 
       const hoverClientY = clientOffset.y - hoverBoundingRect.top;
 
@@ -57,6 +64,11 @@ const Ingredient = ({ item, index, moveCard }) => {
 
       item.index = hoverIndex;
     },
+    collect(monitor: DropTargetMonitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      };
+    },
   });
 
   const [{ isDragging }, drag] = useDrag({
@@ -70,7 +82,7 @@ const Ingredient = ({ item, index, moveCard }) => {
   const opacity = isDragging ? 0 : 1;
   if (item.type !== "bun") drag(drop(ref));
 
-  const preventDefault = (e) => e.preventDefault();
+  const preventDefault = (e: React.SyntheticEvent) => e.preventDefault();
   return (
     <div
       ref={ref}
@@ -89,12 +101,6 @@ const Ingredient = ({ item, index, moveCard }) => {
       />
     </div>
   );
-};
-
-Ingredient.propTypes = {
-  item: ingredientsPropTypes.isRequired,
-  index: PropTypes.number,
-  moveCard: PropTypes.func.isRequired,
 };
 
 export default Ingredient;
