@@ -1,20 +1,21 @@
 import { baseUrl } from "../constants/constants";
 import { checkResponse } from "./check-response";
-import { getCookie } from "./utilsCookie";
+import { TCreateOrder, TGetIngredients, TIngredientsId } from "./type";
+
 
 export const requestApi = () => {
   return fetch(`${baseUrl}/ingredients`, {
     method: "GET",
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TGetIngredients>(res));
 };
 
-export const createOrder = (ids) => {
+export const createOrder = (ids: TIngredientsId, token: string) => {
   return fetch(`${baseUrl}/orders`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: getCookie("accessToken"),
+      Authorization: token,
     },
     body: JSON.stringify(ids),
-  }).then(checkResponse);
+  }).then((res) => checkResponse<TCreateOrder>(res));
 };

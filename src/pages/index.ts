@@ -1,9 +1,9 @@
 import { MainPage } from "./main-page";
-import { ForgotPasswordPage } from "./forgot-password-page.jsx";
-import { LoginPage } from "./login-page.jsx";
-import { ProfilePage } from "./profile-page.jsx";
-import { RegisterPage } from "./register-page.jsx";
-import { ResetPasswordPage } from "./reset-password-page.jsx";
+import { ForgotPasswordPage } from "./forgot-password-page";
+import { LoginPage } from "./login-page";
+import { ProfilePage } from "./profile-page";
+import { RegisterPage } from "./register-page";
+import { ResetPasswordPage } from "./reset-password-page";
 import { IngredientPage } from "./ingredient-page";
 import { NotFound404 } from "./not-found";
 

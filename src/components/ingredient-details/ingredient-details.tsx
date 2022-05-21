@@ -1,14 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { TIngredient } from "../../utils/type";
 
 import ingredientStyle from "./ingredient-details.module.css";
 
+type TUseParamsId = {
+  id:  string
+}
 const IngredientDetails = () => {
-  const { id } = useParams();
-  const { items } = useSelector((store) => store.itemsBurger);
+  const { id } = useParams<TUseParamsId>();
+  const { items } = useSelector((store: any) => store.itemsBurger);
 
-  const ingredient = items.find((item) => item._id === id);
+  const ingredient: TIngredient = items.find((item: TIngredient) => item._id === id);
 
   if (!ingredient) return null;
   return (

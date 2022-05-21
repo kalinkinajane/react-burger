@@ -11,38 +11,44 @@ import {
   updateUserData,
 } from "../services/actions/auth";
 import pageStyle from "./page.module.css";
+import { getCookie } from "../utils/utilsCookie";
+import { TDataFormRegister } from "../utils/type";
 
 export const ProfilePage = () => {
-  const [isEditeInput, setIsEditeInput] = useState(false);
-  const [data, setData] = useState({
+  const [isEditeInput, setIsEditeInput] = useState<boolean>(false);
+  const [data, setData] = useState<TDataFormRegister>({
     name: "",
     email: "",
     password: "",
   });
- 
+
   const dispatch = useDispatch();
-  const { userProfile } = useSelector((store) => store.authDataUser);
+  const { userProfile } = useSelector((store: any) => store.authDataUser);
 
-  const inputNameRef = React.useRef(null);
-  const inputEmailRef = React.useRef(null);
+  const inputNameRef = React.useRef<HTMLInputElement>(null);
+  const inputEmailRef = React.useRef<HTMLInputElement>(null);
 
-  const onIconClick = (inputRef) => {
+  const onIconClick = (inputRef: React.RefObject<HTMLInputElement>) => {
+    if (!inputRef.current) return
     setTimeout(() => {
-      inputRef.current.focus();
+      inputRef.current && inputRef.current.focus();
     }, 10);
     setIsEditeInput(true);
     inputRef.current.disabled = false;
   };
 
-  const handleCancelChange = (e) => {
+  const handleCancelChange = (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsEditeInput(false);
     setData(userProfile);
-    inputNameRef.current.disabled = true;
-    inputEmailRef.current.disabled = true;
+    if (inputNameRef.current && inputEmailRef.current) {
+      inputNameRef.current.disabled = true;
+      inputEmailRef.current.disabled = true;
+    }
+
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setData({
       ...data,
@@ -50,13 +56,16 @@ export const ProfilePage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const { name, email } = data;
-    dispatch(updateUserData(name, email));
+    const token = getCookie("accessToken")
+    dispatch(updateUserData(name, email, token));
     setIsEditeInput(false);
-    inputNameRef.current.disabled = true;
-    inputEmailRef.current.disabled = true;
+    if (inputNameRef.current && inputEmailRef.current) {
+      inputNameRef.current.disabled = true;
+      inputEmailRef.current.disabled = true;
+    }
   };
 
   useEffect(() => {
@@ -116,7 +125,7 @@ export const ProfilePage = () => {
             icon={"EditIcon"}
           />
           <Input
-           onChange={handleChange}
+            onChange={handleChange}
             type={"email"}
             placeholder={"E-mail"}
             value={data.email}

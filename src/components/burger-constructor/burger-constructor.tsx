@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import PropTypes from "prop-types";
 import { useDrop } from "react-dnd";
 
 import {
@@ -18,17 +17,23 @@ import {
 import { createOrderDetails } from "../../services/actions/order";
 
 import constructorStyle from "./burger-constructor.module.css";
+import { TIngredient, TIngredientsId } from "../../utils/type";
+import { getCookie } from "../../utils/utilsCookie";
 
-const BurgerConstructor = ({ openOrderDetails }) => {
-  const { isLogin } = useSelector((store) => store.authDataUser);
-  const [ingredientsId, setIngredientsId] = useState({ ingredients: [] });
-  const { ingredients, bun } = useSelector((store) => store.ingredients);
+type TBurgerConstructorProps ={
+  openOrderDetails: ()=> void; 
+}
+
+const BurgerConstructor : FC<TBurgerConstructorProps> =({ openOrderDetails }) => {
+  const { isLogin } = useSelector((store: any) => store.authDataUser);
+  const [ingredientsId, setIngredientsId] = useState<TIngredientsId>({ ingredients: [] });
+  const { ingredients, bun } = useSelector((store: any) => store.ingredients);
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [{ isHover }, dropTargerRef] = useDrop({
     accept: "ingredient",
-    drop(item) {
+    drop(item : TIngredient ) {
       item.type === "bun"
         ? dispatch(addBun(item))
         : dispatch(addIngredients(item));
@@ -39,21 +44,18 @@ const BurgerConstructor = ({ openOrderDetails }) => {
   });
 
   useEffect(() => {
-    const newData = ingredients.map((item) => item._id);
+    const newData: number[] = ingredients.map((item: TIngredient ) => item._id);
     setIngredientsId({ ingredients: newData });
   }, [ingredients]);
 
-  const countBun = bun ? bun.price * 2 : 0;
-  const countPrice =
-    ingredients.reduce((sum, current) => sum + current.price, 0) + countBun;
+  const countBun: number = bun ? bun.price * 2 : 0;
+  const countPrice: number =
+    ingredients.reduce((sum: number, current: TIngredient ) => sum + current.price, 0) + countBun;
 
   const handleCreateOrderDetails = () => {
-    if (ingredients.length === 0) {
-      return;
-    }
-
-    if (isLogin) {
-      dispatch(createOrderDetails(ingredientsId));
+    if (isLogin && ingredients.length > 0) {
+      const token = getCookie("accessToken")
+      dispatch(createOrderDetails(ingredientsId, token));
       openOrderDetails();
     } else {
       history.push("/login");
@@ -104,10 +106,6 @@ const BurgerConstructor = ({ openOrderDetails }) => {
       </div>
     </section>
   );
-};
-
-BurgerConstructor.propTypes = {
-  openOrderDetails: PropTypes.func.isRequired,
 };
 
 export default BurgerConstructor;

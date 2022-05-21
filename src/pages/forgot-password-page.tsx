@@ -1,40 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useHistory, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import {
   Button,
   Input,
-  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { resetPassword } from "../utils/authApi";
+import { forgotPassword } from "../utils/authApi";
 
 import pageStyle from "./page.module.css";
 
-export const ResetPasswordPage = () => {
-  const { isLogin } = useSelector((store) => store.authDataUser);
-  const history = useHistory();
-  const [data, setData] = React.useState({
-    password: "",
-    code: "",
-  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setData({
-      ...data,
-      [name]: value,
-    });
+export const ForgotPasswordPage = () => {
+  const { isLogin } = useSelector((store: any) => store.authDataUser);
+  const history = useHistory();
+  const [data, setData] = useState<string>("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setData(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const { password, code } = data;
-    resetPassword(password, code)
+    forgotPassword(data)
       .then((data) => {
         if (data.success) {
-          history.push("/login");
+          history.push("/reset-password");
         }
       })
       .catch((err) => console.log(err));
@@ -44,7 +36,7 @@ export const ResetPasswordPage = () => {
     return (
       <Redirect
         to={{
-          pathname: "/",
+          pathname: "/login",
         }}
       />
     );
@@ -53,20 +45,16 @@ export const ResetPasswordPage = () => {
     <div className={pageStyle.container}>
       <h2 className="text text_type_main-medium">Восстановление пароля</h2>
       <form onSubmit={handleSubmit}>
-        <PasswordInput
-          onChange={handleChange}
-          value={data.password}
-          name={"password"}
-        />
         <Input
-          placeholder={"Введите код из письма"}
+          type={"email"}
+          placeholder={"Укажите e-mail"}
           onChange={handleChange}
-          value={data.code}
-          name={"code"}
+          value={data}
+          name={"email"}
         />
 
         <Button type="primary" htmlType="submit" size="medium">
-          Сохранить
+          Восстановить
         </Button>
       </form>
       <div className="text text_type_main-default mt-20">

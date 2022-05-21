@@ -2,7 +2,7 @@
   min-width: 568px;
   height: calc(100% - 455px);
   flex: 1 0 auto;
-  overflow: auto;
+  overflow-x: auto;
   padding-right: 8px;
 }
 .element {

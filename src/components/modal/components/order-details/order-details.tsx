@@ -8,7 +8,7 @@ import modalStyle from "../../modal.module.css";
 
 const OrderDetails = () => {
   const { orderDetailRequest, orderDetail, orderDetailFailed } = useSelector(
-    (store) => store.orderDetail
+    (store: any) => store.orderDetail
   );
 
   if (orderDetailRequest) {

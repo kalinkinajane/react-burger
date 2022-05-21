@@ -18,10 +18,10 @@ export const getOrderFailed = () => ({
   type: GET_ORDERDETAILS_FAILED,
 });
 
-export const createOrderDetails = (ids) => {
+export const createOrderDetails = (ids, token) => {
   return function (dispatch) {
     dispatch(getOrderRequest());
-    createOrder(ids)
+    createOrder(ids, token)
       .then((res) => {
         if (res && res.success) {
           dispatch(getOrderSuccess(res));
