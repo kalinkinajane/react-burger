@@ -1,3 +1,5 @@
+import { TDataFormRegister } from "../../utils/type";
+import { TUserActions } from "../actions/auth";
 import {
   REGISTER_USER_REQUEST,
   REGISTER_USER_SUCCESS,
@@ -7,9 +9,16 @@ import {
   GET_USER_FAILED,
   GET_USER_REQUEST,
   LOGOUT_USER,
-} from "../actions/auth";
+} from "../constants";
 
-const initialState = {
+type TAuthState ={
+  userProfile:  TDataFormRegister,
+  isLogin: boolean,
+  registration: boolean,
+  userDataRequest: boolean,
+  userDataFailed: boolean,
+}
+const initialState : TAuthState = {
   userProfile: {
     name: "",
     email: "",
@@ -21,7 +30,7 @@ const initialState = {
   userDataFailed: false,
 };
 
-export const authDataReducer = (state = initialState, action) => {
+export const authDataReducer = (state = initialState, action: TUserActions) => {
   switch (action.type) {
     case REGISTER_USER_REQUEST: {
       return {

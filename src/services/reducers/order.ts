@@ -1,8 +1,9 @@
+import { TOrderDetailsActions } from "../actions/order";
 import {
   GET_ORDERDETAILS_REQUEST,
   GET_ORDERDETAILS_SUCCESS,
   GET_ORDERDETAILS_FAILED,
-} from "../actions/order";
+} from "../constants";
 
 const initialState = {
   orderDetail: null,
@@ -10,7 +11,7 @@ const initialState = {
   orderDetailFailed: false,
 };
 
-export const orderDetailReducer = (state = initialState, action) => {
+export const orderDetailReducer = (state = initialState, action: TOrderDetailsActions) => {
   switch (action.type) {
     case GET_ORDERDETAILS_REQUEST: {
       return {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 import {
@@ -145,8 +145,9 @@ export const ProfilePage = () => {
             name={"password"}
             error={false}
             errorText={"Ошибка"}
-            disabled={true}
-          />
+            disabled={true} onChange={function (e: ChangeEvent<HTMLInputElement>): void {
+              throw new Error("Function not implemented.");
+            } }          />
           {isEditeInput && (
             <div>
               <Button
