@@ -1,3 +1,4 @@
+import { TCreateOrder } from "../../utils/type";
 import { TOrderDetailsActions } from "../actions/order";
 import {
   GET_ORDERDETAILS_REQUEST,
@@ -5,7 +6,13 @@ import {
   GET_ORDERDETAILS_FAILED,
 } from "../constants";
 
-const initialState = {
+type TItemsBurgerState ={
+  orderDetail: TCreateOrder | null,
+  orderDetailRequest: boolean,
+  orderDetailFailed: boolean,
+}
+
+const initialState: TItemsBurgerState = {
   orderDetail: null,
   orderDetailRequest: false,
   orderDetailFailed: false,

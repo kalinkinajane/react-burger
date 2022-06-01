@@ -17,7 +17,7 @@ const initialState: TItemsBurgerState = {
   itemsFailed: false,
 };
 
-export const itemsBurgerReducer = (state = initialState, action: TItemsBurgerActions) => {
+export const itemsBurgerReducer = (state = initialState, action: TItemsBurgerActions): TItemsBurgerState => {
   switch (action.type) {
     case GET_ITEMS_REQUEST: {
       return {

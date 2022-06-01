@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
 import {
@@ -12,9 +11,10 @@ import { registerUser } from "../services/actions/auth";
 
 import pageStyle from "./page.module.css";
 import { TDataFormRegister } from "../utils/type";
+import { useDispatch, useSelector } from "../utils/hooks";
 
 export const RegisterPage = () => {
-  const { registration } = useSelector((store: any) => store.authDataUser);
+  const { registration } = useSelector((store) => store.authDataUser);
   const dispatch = useDispatch();
 
   const [data, setData] = React.useState<TDataFormRegister>({

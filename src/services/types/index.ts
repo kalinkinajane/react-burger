@@ -17,8 +17,9 @@ export type TApplicationActions = TUserActions
 
 export type RootState = ReturnType<typeof store.getState>; 
 
-export type AppThunk<TReturn = void> = ActionCreator<
-  ThunkAction<TReturn, Action, RootState, TApplicationActions>
+export type AppThunk<ReturnType = void> = ActionCreator<
+  ThunkAction<ReturnType, Action, RootState, TApplicationActions>
 >; 
 
+// export type AppDispatch =  Dispatch<TApplicationActions> | AppThunk; 
 export type AppDispatch = typeof store.dispatch | AppThunk; 

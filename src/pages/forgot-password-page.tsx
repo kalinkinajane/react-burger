@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useHistory, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import {
   Button,
@@ -10,10 +9,11 @@ import {
 import { forgotPassword } from "../utils/authApi";
 
 import pageStyle from "./page.module.css";
+import { useSelector } from "../utils/hooks";
 
 
 export const ForgotPasswordPage = () => {
-  const { isLogin } = useSelector((store: any) => store.authDataUser);
+  const { isLogin } = useSelector((store) => store.authDataUser);
   const history = useHistory();
   const [data, setData] = useState<string>("");
 

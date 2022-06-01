@@ -10,12 +10,12 @@ type TMainProps = {
   onCardClick: (ingredient: TIngredient) => void;
   openOrderDetails: () => void;
 }
-export const MainPage = ({ onCardClick, openOrderDetails }:TMainProps) => {
+export const MainPage = ({ onCardClick, openOrderDetails }: TMainProps) => {
   return (
     <main className={appStyles.main}>
       <DndProvider backend={HTML5Backend}>
         <BurgerIngredints onCardClick={onCardClick} />
-        <BurgerConstructor openOrderDetails={openOrderDetails} />
+        <BurgerConstructor openOrderDetails={openOrderDetails}/>
       </DndProvider>
     </main>
   );

@@ -12,7 +12,7 @@ import {
 } from "../constants";
 
 type TAuthState ={
-  userProfile:  TDataFormRegister,
+  userProfile: TDataFormRegister,
   isLogin: boolean,
   registration: boolean,
   userDataRequest: boolean,
@@ -30,7 +30,7 @@ const initialState : TAuthState = {
   userDataFailed: false,
 };
 
-export const authDataReducer = (state = initialState, action: TUserActions) => {
+export const authDataReducer = (state = initialState, action: TUserActions): TAuthState => {
   switch (action.type) {
     case REGISTER_USER_REQUEST: {
       return {
@@ -100,11 +100,7 @@ export const authDataReducer = (state = initialState, action: TUserActions) => {
     }
     case LOGOUT_USER: {
       return {
-        ...state,
-        userDataRequest: false,
-        userProfile: null,
-        userDataFailed: false,
-        isLogin: false,
+        ...initialState
       };
     }
     default: {

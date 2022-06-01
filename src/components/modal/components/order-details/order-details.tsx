@@ -1,14 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import imgDatails from "../../../../images/image.png";
 
 import detailStyle from "./order-details.module.css";
 import modalStyle from "../../modal.module.css";
+import { useSelector } from "../../../../utils/hooks";
 
 const OrderDetails = () => {
   const { orderDetailRequest, orderDetail, orderDetailFailed } = useSelector(
-    (store: any) => store.orderDetail
+    (store) => store.orderDetail
   );
 
   if (orderDetailRequest) {

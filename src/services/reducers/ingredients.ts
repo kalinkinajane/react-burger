@@ -10,19 +10,24 @@ import {
 
 type TIngredientsState ={
   ingredients: Array<TIngredient>,
-  bun: null,
+  bun: TIngredient | null,
+  price: number,
 }
 const initialState: TIngredientsState = {
   ingredients: [],
   bun: null,
+  price: 0,
 };
 
-export const ingredientsConstructorReduser = (state = initialState, action: TIngredientsConstrctorActions) => {
+
+
+export const ingredientsConstructorReduser = (state = initialState, action: TIngredientsConstrctorActions): TIngredientsState => {
   switch (action.type) {
     case ADD_BUN: {
       return {
         ...state,
         bun: action.payload,
+        price: action.payload.price,
       };
     }
     case ADD_INGREDIENTS_BURGER: {
@@ -47,9 +52,7 @@ export const ingredientsConstructorReduser = (state = initialState, action: TIng
     }
     case CLEAR_INGREDIENTS_CONSTRUCTOR: {
       return {
-        ...state,
-        ingredients: [],
-        bun: null,
+        ...initialState,
       };
     }
     default: {

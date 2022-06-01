@@ -1,6 +1,5 @@
 import React, { useEffect, useState, FC } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 
 import {
@@ -19,15 +18,16 @@ import { createOrderDetails } from "../../services/actions/order";
 import constructorStyle from "./burger-constructor.module.css";
 import { TIngredient, TIngredientsId } from "../../utils/type";
 import { getCookie } from "../../utils/utilsCookie";
+import { useDispatch, useSelector } from "../../utils/hooks";
 
 type TBurgerConstructorProps ={
   openOrderDetails: ()=> void; 
 }
 
-const BurgerConstructor : FC<TBurgerConstructorProps> =({ openOrderDetails }) => {
-  const { isLogin } = useSelector((store: any) => store.authDataUser);
+const BurgerConstructor : FC<TBurgerConstructorProps> = ({ openOrderDetails }) => {
+  const { isLogin } = useSelector((state) => state.authDataUser);
   const [ingredientsId, setIngredientsId] = useState<TIngredientsId>({ ingredients: [] });
-  const { ingredients, bun } = useSelector((store: any) => store.ingredients);
+  const { ingredients, bun, price } = useSelector((state) => state.ingredients);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -44,12 +44,12 @@ const BurgerConstructor : FC<TBurgerConstructorProps> =({ openOrderDetails }) =>
   });
 
   useEffect(() => {
-    const newData: number[] = ingredients.map((item: TIngredient ) => item._id);
+    const newData: string[] = ingredients.map((item: TIngredient ) => item._id);
     setIngredientsId({ ingredients: newData });
   }, [ingredients]);
 
-  const countBun: number = bun ? bun.price * 2 : 0;
-  const countPrice: number =
+  const countBun: number = bun ? price * 2 : 0;
+  const countPrice: number = ingredients &&
     ingredients.reduce((sum: number, current: TIngredient ) => sum + current.price, 0) + countBun;
 
   const handleCreateOrderDetails = () => {

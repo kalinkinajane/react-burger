@@ -18,7 +18,7 @@ import {
   logoutUser,
 } from "../../utils/authApi";
 import { setCookie, deleteCookie } from "../../utils/utilsCookie";
-import { TDataForm, TDataFormRegister, TGetUser, TUserData } from "../../utils/type";
+import { TDataFormRegister, TGetUser, TUserData } from "../../utils/type";
 import { AppDispatch, AppThunk } from "../types";
 
 export interface IRegisterUserRequest {
@@ -108,7 +108,7 @@ export const registerUser: AppThunk = (data: TDataFormRegister) => {
   };
 };
 
-export const loginUser: AppThunk = (data: TDataForm) => {
+export const loginUser: AppThunk = (data: TDataFormRegister) => {
   return function (dispatch: AppDispatch) {
     login(data)
       .then((res) => {

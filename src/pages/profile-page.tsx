@@ -1,5 +1,4 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 import {
   Input,
@@ -13,6 +12,7 @@ import {
 import pageStyle from "./page.module.css";
 import { getCookie } from "../utils/utilsCookie";
 import { TDataFormRegister } from "../utils/type";
+import { useDispatch, useSelector } from "../utils/hooks";
 
 export const ProfilePage = () => {
   const [isEditeInput, setIsEditeInput] = useState<boolean>(false);
@@ -23,7 +23,7 @@ export const ProfilePage = () => {
   });
 
   const dispatch = useDispatch();
-  const { userProfile } = useSelector((store: any) => store.authDataUser);
+  const { userProfile } = useSelector((store) => store.authDataUser);
 
   const inputNameRef = React.useRef<HTMLInputElement>(null);
   const inputEmailRef = React.useRef<HTMLInputElement>(null);

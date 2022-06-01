@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import { useSelector } from "react-redux";
 
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
@@ -8,6 +7,7 @@ import { tabTypes } from "../../constants/constants";
 
 import ingredientsStyle from "./burger-ingredints.module.css";
 import { TIngredient } from "../../utils/type";
+import { useSelector } from "../../utils/hooks";
 
 type TBurgerIngredintsProps = {
   onCardClick: (ingredient: TIngredient) => void;
@@ -18,7 +18,7 @@ const filterIngredients = (arr: Array<TIngredient>, type: string) => {
 };
 
 const BurgerIngredints = ({ onCardClick }: TBurgerIngredintsProps) => {
-  const ingredients = useSelector((store: any) => store.itemsBurger.items);
+  const ingredients = useSelector((store) => store.itemsBurger.items);
 
   const ingredientsBun = filterIngredients(ingredients, "bun");
   const ingredientsSauce = filterIngredients(ingredients, "sauce");
