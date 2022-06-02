@@ -1,3 +1,12 @@
+.main {
+  max-width: 1240px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  box-sizing: border-box;
+  height: calc(100vh - 88px);
+}
 .container {
   max-width: 480px;
   display: flex;
@@ -6,17 +15,13 @@
   margin: 180px auto 0;
 }
 
-/* p {
-  color: #8585ad;
-  margin: 0;
-} */
 .link {
   text-decoration: none;
   color: #4c4cff;
 }
 
 .profile {
-  max-width: 1280px;
+  max-width: 1240px;
   margin: 120px auto 0;
 }
 .profileContainer {
@@ -43,4 +48,7 @@
 .notice {
   max-width: 320px;
   text-align: start;
+}
+.title {
+  text-align: left;
 }

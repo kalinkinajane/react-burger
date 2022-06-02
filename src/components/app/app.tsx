@@ -16,6 +16,7 @@ import {
   ResetPasswordPage,
   ProfilePage,
   NotFound404,
+  FeedPage,
 } from "../../pages";
 
 import {
@@ -29,6 +30,8 @@ import { TLocation, TIngredient } from "../../utils/type";
 
 import appStyles from "./app.module.css";
 import { getCookie } from "../../utils/utilsCookie";
+import { FeedItemsInfo } from "../../pages/feed-items-info-page/feed-items-info";
+
 
 
 export default function App() {
@@ -85,6 +88,13 @@ export default function App() {
         <Route path="/ingredients/:id">
           <IngredientPage />
         </Route>
+        <Route path="/feed" exact={true}>
+          <FeedPage />
+        </Route>
+        <Route path="/feed/:id" exact={true}>
+          <FeedItemsInfo />
+        </Route>
+
         <Route path="/" exact={true}>
           <MainPage
             onCardClick={openIngredientDetails}
