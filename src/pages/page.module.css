@@ -23,6 +23,7 @@
 .profile {
   max-width: 1240px;
   margin: 120px auto 0;
+  display: flex;
 }
 .profileContainer {
   display: flex;
@@ -51,4 +52,16 @@
 }
 .title {
   text-align: left;
+}
+.width{
+  min-width: 584px;
+  height: calc(100% - 60px);
+}
+.widthBig{
+  min-width: 844px
+}
+.feedPage {
+  max-width: 640px;
+  margin: 122px auto 0;
+  text-align: start;
 }

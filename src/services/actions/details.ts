@@ -2,7 +2,7 @@ import { TIngredient } from "../../utils/type";
 import {
   ADD_VIEW_INGREDIENT,
   REMOVE_VIEW_INGREDIENT,
-} from "../constants";
+} from "../action-types/action-types";
 
 export interface IAddViewIngredient {
   readonly type: typeof ADD_VIEW_INGREDIENT;

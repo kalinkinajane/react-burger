@@ -19,7 +19,6 @@ const filterIngredients = (arr: Array<TIngredient>, type: string) => {
 
 const BurgerIngredints = ({ onCardClick }: TBurgerIngredintsProps) => {
   const ingredients = useSelector((store) => store.itemsBurger.items);
-
   const ingredientsBun = filterIngredients(ingredients, "bun");
   const ingredientsSauce = filterIngredients(ingredients, "sauce");
   const ingredientsMain = filterIngredients(ingredients, "main");

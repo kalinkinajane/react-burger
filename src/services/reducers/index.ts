@@ -4,6 +4,7 @@ import { ingredientsConstructorReduser } from "./ingredients";
 import { itemsBurgerReducer } from "./items-burger";
 import { orderDetailReducer } from "./order";
 import { authDataReducer } from "./auth";
+import { wsReduser } from "./ws-reduser";
 
 export const rootReducer = combineReducers({
   itemsBurger: itemsBurgerReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   ingredients: ingredientsConstructorReduser,
   ingredientDetail: ingredientDetailReducer,
   authDataUser: authDataReducer,
+  orders: wsReduser,
 });

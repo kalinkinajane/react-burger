@@ -20,6 +20,16 @@ export type TIngredient = {
   image_large: string;
 } ;
 
+export type TOrderItem = {
+  createdAt: string,
+  ingredients: Array<string>,
+  name: string,
+  number: number,
+  status: string,
+  updatedAt: string,
+  _id: string,
+};
+
 export type TIngredientsId = {
   ingredients: string[];
 };

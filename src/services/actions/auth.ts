@@ -7,7 +7,7 @@ import {
   GET_USER_FAILED,
   GET_USER_REQUEST,
   LOGOUT_USER,
-} from "../constants";
+} from "../action-types/action-types";
 
 import {
   register,
@@ -152,7 +152,7 @@ export const getUserData: AppThunk = (token: string) => {
 };
 
 export const updateUserData: AppThunk = (name: string, email: string, token: string) => {
-  return function (dispatch : AppDispatch) {
+  return function (dispatch: AppDispatch ) {
     dispatch(getUserRequest());
     updateUser(name, email, token)
       .then((res) => {
@@ -170,8 +170,8 @@ export const updateUserData: AppThunk = (name: string, email: string, token: str
   };
 };
 
-export const logoutDataUser: AppThunk = () => {
-  return function (dispatch: AppDispatch) {
+export const logoutDataUser= () => {
+  return function (dispatch: AppDispatch ) {
     dispatch(getUserRequest());
     logoutUser()
       .then((res) => {

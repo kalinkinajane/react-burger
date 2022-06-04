@@ -9,4 +9,5 @@
   align-items: center;
   overflow: hidden;
   display: flex;
+  z-index: 100;
 }

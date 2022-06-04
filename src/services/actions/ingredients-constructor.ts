@@ -6,7 +6,7 @@ import {
   DELETE_INGREDIENT_BURGER,
   UPDATE_INGREDIENTS_CONSTRUCTOR,
   CLEAR_INGREDIENTS_CONSTRUCTOR,
-} from "../constants";
+} from "../action-types/action-types";
 
 export interface IAddIngredientsBurger {
   readonly type: typeof ADD_INGREDIENTS_BURGER;

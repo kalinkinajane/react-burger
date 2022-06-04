@@ -4,7 +4,7 @@ import {
   GET_ITEMS_REQUEST,
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILED,
-} from "../constants";
+} from "../action-types/action-types";
 
 type TItemsBurgerState ={
   items: Array<TIngredient>,

@@ -4,7 +4,7 @@ import {
   GET_ORDERDETAILS_REQUEST,
   GET_ORDERDETAILS_SUCCESS,
   GET_ORDERDETAILS_FAILED,
-} from "../constants";
+} from "../action-types/action-types";
 
 type TItemsBurgerState ={
   orderDetail: TCreateOrder | null,

@@ -4,7 +4,7 @@ import {
   GET_ORDERDETAILS_REQUEST,
   GET_ORDERDETAILS_SUCCESS,
   GET_ORDERDETAILS_FAILED,
-} from "../constants";
+} from "../action-types/action-types";
 import { TCreateOrder, TIngredientsId } from "../../utils/type";
 import { AppDispatch, AppThunk } from "../types";
 
@@ -35,8 +35,8 @@ export const getOrderFailed = (): IGetOrderDetailsFailed => ({
   type: GET_ORDERDETAILS_FAILED,
 });
 
-export const createOrderDetails: AppThunk = (ids: TIngredientsId, token: string) => {
-  return function (dispatch: AppDispatch) {
+export const createOrderDetails: AppThunk  = (ids: TIngredientsId, token: string) => {
+  return function (dispatch: AppDispatch ) {
     dispatch(getOrderRequest());
     createOrder(ids, token)
       .then((res) => {

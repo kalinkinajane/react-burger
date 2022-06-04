@@ -6,15 +6,15 @@ import {
   DELETE_INGREDIENT_BURGER,
   UPDATE_INGREDIENTS_CONSTRUCTOR,
   CLEAR_INGREDIENTS_CONSTRUCTOR,
-} from "../constants";
+} from "../action-types/action-types";
 
 type TIngredientsState ={
-  ingredients: Array<TIngredient>,
+  burgerIngredients: Array<TIngredient>,
   bun: TIngredient | null,
   price: number,
 }
 const initialState: TIngredientsState = {
-  ingredients: [],
+  burgerIngredients: [],
   bun: null,
   price: 0,
 };
@@ -33,13 +33,13 @@ export const ingredientsConstructorReduser = (state = initialState, action: TIng
     case ADD_INGREDIENTS_BURGER: {
       return {
         ...state,
-        ingredients: [...state.ingredients, action.payload],
+        burgerIngredients: [...state.burgerIngredients, action.payload],
       };
     }
     case DELETE_INGREDIENT_BURGER: {
       return {
         ...state,
-        ingredients: [...state.ingredients].filter(
+        burgerIngredients: [...state.burgerIngredients].filter(
           (item) => item.itemId !== action.payload
         ),
       };
@@ -47,7 +47,7 @@ export const ingredientsConstructorReduser = (state = initialState, action: TIng
     case UPDATE_INGREDIENTS_CONSTRUCTOR: {
       return {
         ...state,
-        ingredients: action.payload,
+        burgerIngredients: action.payload,
       };
     }
     case CLEAR_INGREDIENTS_CONSTRUCTOR: {

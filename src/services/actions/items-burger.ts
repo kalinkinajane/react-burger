@@ -4,7 +4,8 @@ import {
   GET_ITEMS_REQUEST,
   GET_ITEMS_SUCCESS,
   GET_ITEMS_FAILED,
-} from "../constants";
+} from "../action-types/action-types";
+
 import { AppDispatch, AppThunk } from "../types";
 
 export interface IGetItemsRequest {
@@ -37,7 +38,7 @@ export const getItemsFailed = (): IGetItemFaifed => ({
   type: GET_ITEMS_FAILED,
 });
 
-export const getItems: AppThunk = () => {
+export const getItems = () => {
   return function (dispatch: AppDispatch) {
     dispatch(getItemsRequest());
     requestApi()

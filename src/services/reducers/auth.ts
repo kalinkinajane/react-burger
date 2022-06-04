@@ -9,7 +9,7 @@ import {
   GET_USER_FAILED,
   GET_USER_REQUEST,
   LOGOUT_USER,
-} from "../constants";
+} from "../action-types/action-types";
 
 type TAuthState ={
   userProfile: TDataFormRegister,

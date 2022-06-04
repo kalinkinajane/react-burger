@@ -17,6 +17,7 @@ import {
   ProfilePage,
   NotFound404,
   FeedPage,
+  ProfileOrdersPage,
 } from "../../pages";
 
 import {
@@ -26,17 +27,18 @@ import {
 import { getUserData } from "../../services/actions/auth";
 import { getItems } from "../../services/actions/items-burger";
 
-import { TLocation, TIngredient } from "../../utils/type";
+import { TLocation, TIngredient, TOrderItem } from "../../utils/type";
 
 import appStyles from "./app.module.css";
 import { getCookie } from "../../utils/utilsCookie";
-import { FeedItemsInfo } from "../../pages/feed-items-info-page/feed-items-info";
+import { FeedItemsInfo } from "../feed-items-info/feed-items-info";
+import { FeedItemsInfoIpage } from "../../pages/feed-itemsinfo-page";
 
 
 
 export default function App() {
   const [isOpenOrderDetails, setOpenOrderDetails] = useState<boolean>(false);
-
+  // const [isOrdersCard, setOrdersCard] = useState<TOrderItem>();
   const history = useHistory();
   const location = useLocation<TLocation>();
   const background = location.state && location.state.background;
@@ -65,14 +67,24 @@ export default function App() {
   const openIngredientDetails = (card: TIngredient) => {
     dispatch(addIngredient(card));
   };
+  // const onCardOrdersClick = (card: TOrderItem) => {
+  //   // console.log(card)
+  //   setOrdersCard(card);
+  // };
 
   return (
     <div className={appStyles.app}>
       <AppHeader />
       <Switch location={background || location}>
-        <ProtectedRoute path="/profile" exact={true}>
+        <ProtectedRoute path="/profile"  exact={true}>
           <ProfilePage />
         </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders" exact={true}>
+          <ProfileOrdersPage />
+        </ProtectedRoute>
+        {/* <ProtectedRoute path="/profile/orders/:id">
+        <FeedItemsInfo card={isOrdersCard}/>
+        </ProtectedRoute> */}
         <Route path="/reset-password">
           <ResetPasswordPage />
         </Route>
@@ -89,10 +101,10 @@ export default function App() {
           <IngredientPage />
         </Route>
         <Route path="/feed" exact={true}>
-          <FeedPage />
+          <FeedPage/>
         </Route>
         <Route path="/feed/:id" exact={true}>
-          <FeedItemsInfo />
+        <FeedItemsInfoIpage/>
         </Route>
 
         <Route path="/" exact={true}>
@@ -114,6 +126,18 @@ export default function App() {
               closeModal={closeModalIngredients}
             >
               <IngredientDetails />
+            </Modal>
+          }
+        />
+      )}
+      {background && (
+        <Route
+          path="/feed/:id" exact={true}
+          children={
+            <Modal
+              closeModal={closeModalIngredients}
+            >
+              <FeedItemsInfo/>
             </Modal>
           }
         />
