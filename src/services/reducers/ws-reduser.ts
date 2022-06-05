@@ -1,7 +1,6 @@
 import { TOrderItem } from "../../utils/type";
 import {
   WS_CONNECTION_START,
-  WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_ORDERS,
@@ -36,14 +35,19 @@ export const wsReduser = (
     }
     case WS_CONNECTION_ERROR: {
       return {
-        ...initialState,
-        // error: action.payload,
+        ...state,
         wsConnected: false,
+        orders: [],
+        total: 0,
+        totalToday: 0,
       };
     }
     case WS_CONNECTION_CLOSED:
       return {
-        ...state,
+        ...initialState,
+        orders: [],
+        total: 0,
+        totalToday: 0,
         wsConnected: false,
       };
     case WS_GET_ORDERS:

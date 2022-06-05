@@ -6,7 +6,7 @@ import {
   GET_ITEMS_FAILED,
 } from "../action-types/action-types";
 
-import { AppDispatch, AppThunk } from "../types";
+import { AppDispatch } from "../types";
 
 export interface IGetItemsRequest {
   readonly type: typeof GET_ITEMS_REQUEST;

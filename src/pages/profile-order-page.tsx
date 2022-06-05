@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-import FeadOrders from "../components/feed-order/feed-orders";
-import { ProfileTabs } from "../components/profile-tabs/profile-tabs"
+import React, { useEffect } from "react";
+import { FeedItemsInfo } from "../components/feed-items-info/feed-items-info";
 import { feedUrl } from "../constants/constants";
 import { closedConnection, startConnection } from "../services/actions/ws-actions";
 import { useDispatch } from "../utils/hooks";
@@ -8,8 +7,7 @@ import { getCookie } from "../utils/utilsCookie";
 
 import pageStyle from "./page.module.css";
 
-
-export const ProfileOrdersPage = () => {
+export const ProfileOrderPage = () => {
     const dispatch = useDispatch()
     const token = getCookie("accessToken")
     const accessToken = token && token.split('Bearer ')[1]
@@ -24,12 +22,8 @@ export const ProfileOrdersPage = () => {
     }, [dispatch])
 
     return (
-        <main className={pageStyle.profile}>
-            <ProfileTabs />
-            <div className={pageStyle.widthBig}>
-                <FeadOrders />
-            </div>
+        <main className={pageStyle.feedPage}>
+            <FeedItemsInfo />
         </main>
     )
-
 }

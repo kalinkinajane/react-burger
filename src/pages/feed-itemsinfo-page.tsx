@@ -10,7 +10,7 @@ export const FeedItemsInfoIpage = () => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(startConnection(feedUrl))
+        dispatch(startConnection(`${feedUrl}/all`))
 
         return () => {
             dispatch(closedConnection())

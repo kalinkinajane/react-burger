@@ -1,5 +1,6 @@
 import { useSelector } from "../../utils/hooks";
 import { TOrderItem } from "../../utils/type";
+
 import pageStyle from "./feed-info.module.css";
 
 const filterIngredients = (arr: Array<TOrderItem>, status: string) => {
@@ -10,7 +11,6 @@ export const FeedInfo = () => {
     const { orders, total, totalToday } = useSelector((state) => state.orders);
     const pendingOrders = filterIngredients(orders, 'pending')
     const doneOrders = filterIngredients(orders, 'done')
-    // console.log(pendingOrders, doneOrders)
 
     return (
         <section className={`${pageStyle.feedInfo} ml-15`}>
@@ -18,9 +18,12 @@ export const FeedInfo = () => {
                 <div className={`${pageStyle.ready} mr-9`}>
                     <p className="text text_type_main-medium mb-6">Готовы:</p>
                     <div className={pageStyle.listContainer}>
-                    {doneOrders.map((item, i) => (
-                            <p className={`${pageStyle.readyItem} text text_type_digits-default mt-2`} key={i}>{item.number}</p>
+                        <ul>
+                        {doneOrders.slice(0, 10).map((item, i) => (
+                            <li className={`${pageStyle.readyItem} text text_type_digits-default mb-2`} key={i}>{item.number}</li>
                         ))}
+                        </ul>
+                   
                       
                     </div>
 
@@ -28,9 +31,12 @@ export const FeedInfo = () => {
                 <div className={pageStyle.maked}>
                     <p className="text text_type_main-medium mb-6">В работе:</p>
                     <div className={pageStyle.listContainer}>
-                        {pendingOrders.map((item, i) => (
-                            <p className="text text_type_digits-default mt-2" key={i}>{item.number}</p>
+                        <ul>
+                        {pendingOrders.slice(0, 10).map((item, i) => (
+                            <li className="text text_type_digits-default mb-2" key={i}>{item.number}</li>
                         ))}
+                        </ul>
+                       
                     </div>
                 </div>
             </div>

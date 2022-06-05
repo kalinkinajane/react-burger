@@ -14,11 +14,11 @@ import {
   addIngredients,
 } from "../../services/actions/ingredients-constructor";
 import { createOrderDetails } from "../../services/actions/order";
-
-import constructorStyle from "./burger-constructor.module.css";
 import { TIngredient, TIngredientsId } from "../../utils/type";
 import { getCookie } from "../../utils/utilsCookie";
 import { useDispatch, useSelector } from "../../utils/hooks";
+
+import constructorStyle from "./burger-constructor.module.css";
 
 type TBurgerConstructorProps ={
   openOrderDetails: ()=> void; 

@@ -32,7 +32,6 @@
 }
 .containerIngredient {
   display: flex;
-  /* max-width: 320px; */
 }
 .cost {
   margin-right: 9px;
@@ -67,4 +66,7 @@
 .link {
   color: #f2f2f3;
   text-decoration: none;
+}
+.status{
+  text-align: start;
 }

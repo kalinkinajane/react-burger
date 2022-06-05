@@ -1,5 +1,7 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
 import { TIngredient } from "../../../utils/type";
+
 import feedStyle from "../feed-items-info.module.css";
 
 type TItemFeedProps = {

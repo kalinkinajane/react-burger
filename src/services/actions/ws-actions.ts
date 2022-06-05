@@ -23,9 +23,6 @@ export interface IWsGetOrders {
   readonly type: typeof WS_GET_ORDERS;
   readonly payload: any;
 }
-// export interface IWsSendMessage {
-//   readonly type: typeof WS_SEND_MESSAGE;
-// }
 
 export type TWsActions = IWsConnectionStart
   | IWsConnectionSuccess
@@ -33,10 +30,6 @@ export type TWsActions = IWsConnectionStart
   | IWsConnectionClosed
   | IWsGetOrders;
 
-
-  // необходимо при инициализации на нужной странице передать урл
-  //  для feed /all
-  // profile token
 export const startConnection = (url : string): IWsConnectionStart => ({
   type: WS_CONNECTION_START,
   payload: url,

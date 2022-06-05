@@ -1,7 +1,9 @@
 import React from "react";
+
+import { FeedOrder } from "./components/feed-order";
 import { useSelector } from "../../utils/hooks";
 import { TOrderItem } from "../../utils/type";
-import { FeedOrder } from "./components/feed-order";
+
 
 import feedStyle from "./feed-orders.module.css";
 
