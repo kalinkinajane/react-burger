@@ -1,4 +1,5 @@
 import { Location } from "history";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_GET_ORDERS } from "../services/action-types/ws-action-types";
 
 export type TLocation = {
   background?: Location;
@@ -76,4 +77,12 @@ export type TCreateOrder = {
 export type TGetIngredients = {
   data: Array<TIngredient>;
   success: boolean;
+};
+
+export type WsActions = {
+  wsStart: typeof WS_CONNECTION_START;
+  onError: typeof WS_CONNECTION_ERROR;
+  onOrders: typeof WS_GET_ORDERS;
+  onClose: typeof WS_CONNECTION_CLOSED;
+  onOpen: typeof WS_CONNECTION_SUCCESS;
 };

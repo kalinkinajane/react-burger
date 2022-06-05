@@ -1,4 +1,3 @@
-// import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -22,7 +21,7 @@ const IngredientItem = ({ ingredient, onCardClick }: TIngredientItemProps) => {
 
   const location = useLocation();
 
-  const count: number = [...burgerIngredients, bun].filter(
+  const count = [...burgerIngredients, bun].filter(
     (item) => item && item._id === _id
   ).length;
 

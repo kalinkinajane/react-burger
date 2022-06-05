@@ -44,9 +44,12 @@ const BurgerConstructor : FC<TBurgerConstructorProps> = ({ openOrderDetails }) =
   });
 
   useEffect(() => {
-    const newData: string[] = burgerIngredients.map((item: TIngredient ) => item._id);
+    const newData = burgerIngredients.map((item: TIngredient ) => item._id);
+    if(bun){
+      newData.push(bun._id)  
+    }
     setIngredientsId({ ingredients: newData });
-  }, [burgerIngredients]);
+  }, [burgerIngredients, bun]);
 
   const countBun: number = bun ? price * 2 : 0;
   const countPrice: number = burgerIngredients &&

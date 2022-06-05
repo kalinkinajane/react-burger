@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Switch, Route, useHistory, useLocation } from "react-router-dom";
 
 import AppHeader from "../header/app-header";
@@ -34,6 +33,7 @@ import { TLocation, TIngredient } from "../../utils/type";
 import { getCookie } from "../../utils/utilsCookie";
 
 import appStyles from "./app.module.css";
+import { useDispatch } from "../../utils/hooks";
 
 
 

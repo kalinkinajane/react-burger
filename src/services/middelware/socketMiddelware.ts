@@ -1,18 +1,9 @@
 import { Dispatch, Middleware } from "redux";
-import {
-  closedConnection,
-  errorConnection,
-  getOrdersWs,
-  successConnection,
-  TWsActions,
-} from "../actions/ws-actions";
+import { TWsActions } from "../actions/ws-actions";
 
-export type WsActions = {
-  wsStart: string;
-  onError: string;
-  onOrders: string;
-  onClose: string;
-};
+import { WsActions } from "../../utils/type";
+
+
 
 export const socketMiddleware = (wsActions: WsActions): Middleware => {
   return (store: { dispatch: Dispatch<TWsActions> }) => {
@@ -21,25 +12,26 @@ export const socketMiddleware = (wsActions: WsActions): Middleware => {
     return (next) => (action) => {
       const { dispatch } = store;
       const { type, payload } = action;
-      const { wsStart } = wsActions;
+      const { wsStart, onError, onOrders, onClose, onOpen } = wsActions;
+
       if (type === wsStart) {
         socket = new WebSocket(payload);
       }
       if (socket) {
         socket.onopen = () => {
-          dispatch(successConnection());
+          dispatch({ type: onOpen });
         };
 
         socket.onclose = () => {
-          dispatch(closedConnection());
+          dispatch({ type: onClose });
         };
 
         socket.onerror = () => {
-          dispatch(errorConnection());
+          dispatch({ type: onError });
         };
         socket.onmessage = (event) => {
           const { data } = event;
-          dispatch(getOrdersWs(JSON.parse(data)));
+          dispatch({ type: onOrders, payload: JSON.parse(data) });
         };
       }
       next(action);

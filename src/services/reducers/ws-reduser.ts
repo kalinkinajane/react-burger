@@ -4,6 +4,7 @@ import {
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
   WS_GET_ORDERS,
+  WS_CONNECTION_SUCCESS,
 } from "../action-types/ws-action-types";
 import { TWsActions } from "../actions/ws-actions";
 
@@ -27,6 +28,13 @@ export const wsReduser = (
 ): TWSState => {
   switch (action.type) {
     case WS_CONNECTION_START: {
+      return {
+        ...state,
+        error: undefined,
+        wsConnected: true,
+      };
+    }
+    case WS_CONNECTION_SUCCESS: {
       return {
         ...state,
         error: undefined,

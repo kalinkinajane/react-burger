@@ -1,5 +1,4 @@
 import React, { useCallback } from "react";
-import { useDispatch } from "react-redux";
 
 import Ingredient from "./ingredient";
 import { updateIngredients } from "../../../services/actions/ingredients-constructor";
@@ -7,6 +6,7 @@ import { updateIngredients } from "../../../services/actions/ingredients-constru
 import { TIngredient } from "../../../utils/type";
 
 import elementsStyle from "./burger-elements.module.css";
+import { useDispatch } from "../../../utils/hooks";
 
 type TBurgerElementsProps = {
   ingredients: Array<TIngredient>
