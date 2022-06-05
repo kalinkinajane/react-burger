@@ -1,5 +1,4 @@
 import React, { useRef, FC } from "react";
-import { useDispatch } from "react-redux";
 import { useDrag, useDrop, DropTargetMonitor } from "react-dnd";
 
 import {
@@ -12,6 +11,7 @@ import { deleteIngredient } from "../../../services/actions/ingredients-construc
 import { TIngredient } from "../../../utils/type";
 
 import elementsStyle from "./burger-elements.module.css";
+import { useDispatch } from "../../../utils/hooks";
 
 
 type TIngredientProps = {

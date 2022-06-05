@@ -28,11 +28,18 @@ function AppHeader() {
               </p>
             </NavLink>
           </div>
-          <div className={`${headerStyle.flexible} pb-4 pt-4 pl-5 pr-5`}>
-            <ListIcon type="secondary" />
-            <p className="text text__item-nav text_type_main-default text_color_inactive ml-2">
+          <div className="pb-4 pt-4 pl-5 pr-5">
+            <NavLink
+              exact
+              to="/feed"
+              className={headerStyle.linkNav}
+              activeClassName={headerStyle.activeLink}
+            >
+              <ListIcon type={pathname === "/feed" ? "primary" : "secondary"} />
+              <p className="text text__item-nav text_type_main-default ml-2">
               Лента заказов
-            </p>
+              </p>
+            </NavLink>
           </div>
         </nav>
         <div className={headerStyle.logo}>
@@ -48,7 +55,7 @@ function AppHeader() {
             activeClassName={headerStyle.activeLink}
           >
             <ProfileIcon
-              type={pathname === "/profile" ? "primary" : "secondary"}
+              type={pathname === "/profile"  ? "primary" : "secondary"}
             />
             <p className="text text__item-nav text_type_main-default ml-2">
               Личный кабинет

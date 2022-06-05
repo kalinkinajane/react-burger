@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useSelector } from "../../utils/hooks";
 import { TIngredient } from "../../utils/type";
 
 import ingredientStyle from "./ingredient-details.module.css";
@@ -10,9 +10,9 @@ type TUseParamsId = {
 }
 const IngredientDetails = () => {
   const { id } = useParams<TUseParamsId>();
-  const { items } = useSelector((store: any) => store.itemsBurger);
+  const { items } = useSelector((store) => store.itemsBurger);
 
-  const ingredient: TIngredient = items.find((item: TIngredient) => item._id === id);
+  const ingredient = items && items.find((item: TIngredient) => item._id === id);
 
   if (!ingredient) return null;
   return (

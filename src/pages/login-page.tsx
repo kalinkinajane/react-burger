@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link, Redirect, useLocation } from "react-router-dom";
 import {
   Button,
@@ -10,9 +9,10 @@ import {
 import pageStyle from "./page.module.css";
 import { loginUser } from "../services/actions/auth";
 import { TDataForm, TLocation } from "../utils/type";
+import { useDispatch, useSelector } from "../utils/hooks";
 
 export const LoginPage = () => {
-  const { isLogin} = useSelector((store: any) => store.authDataUser);
+  const { isLogin} = useSelector((store) => store.authDataUser);
   const dispatch = useDispatch();
   const { state } = useLocation<TLocation>();
   const [data, setData] = useState<TDataForm>({

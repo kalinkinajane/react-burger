@@ -1,4 +1,3 @@
-import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -8,6 +7,7 @@ import {
 
 import ingredientStyle from "./ingredient-item.module.css";
 import { TIngredient } from "../../../../utils/type";
+import { useSelector } from "../../../../utils/hooks";
 
 
 type TIngredientItemProps = {
@@ -17,11 +17,11 @@ type TIngredientItemProps = {
 
 const IngredientItem = ({ ingredient, onCardClick }: TIngredientItemProps) => {
   const { image, name, price, _id } = ingredient;
-  const { ingredients, bun } = useSelector((store: any) => store.ingredients);
+  const { burgerIngredients, bun } = useSelector((store) => store.ingredients);
 
   const location = useLocation();
 
-  const count: number = [...ingredients, bun].filter(
+  const count = [...burgerIngredients, bun].filter(
     (item) => item && item._id === _id
   ).length;
 
@@ -37,6 +37,7 @@ const IngredientItem = ({ ingredient, onCardClick }: TIngredientItemProps) => {
     }),
   });
 
+  
   return (
     <div
       ref={dragRef}

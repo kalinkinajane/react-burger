@@ -1,18 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink, Link } from "react-router-dom";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {
-  logoutDataUser,
-  updateUserData,
-} from "../services/actions/auth";
+import {getUserData, updateUserData} from "../services/actions/auth";
 import pageStyle from "./page.module.css";
 import { getCookie } from "../utils/utilsCookie";
 import { TDataFormRegister } from "../utils/type";
+import { useDispatch, useSelector } from "../utils/hooks";
+import { ProfileTabs } from "../components/profile-tabs/profile-tabs";
 
 export const ProfilePage = () => {
   const [isEditeInput, setIsEditeInput] = useState<boolean>(false);
@@ -23,7 +20,7 @@ export const ProfilePage = () => {
   });
 
   const dispatch = useDispatch();
-  const { userProfile } = useSelector((store: any) => store.authDataUser);
+  const { userProfile } = useSelector((store) => store.authDataUser);
 
   const inputNameRef = React.useRef<HTMLInputElement>(null);
   const inputEmailRef = React.useRef<HTMLInputElement>(null);
@@ -74,42 +71,11 @@ export const ProfilePage = () => {
     }
   }, [userProfile]);
 
+
   return (
     <div className={pageStyle.profile}>
+      <ProfileTabs />
       <div className={pageStyle.profileContainer}>
-        <ul
-          className={`${pageStyle.navigation} mr-15 text text_type_main-medium`}
-        >
-          <li className={pageStyle.navigationItem}>
-            <NavLink
-              exact
-              to="/profile"
-              className={pageStyle.linkNav}
-              activeClassName={pageStyle.activeLink}
-            >
-              Профиль
-            </NavLink>
-          </li>
-          <li className={pageStyle.navigationItem}>
-            <NavLink
-              exact
-              to="/profile/orders"
-              className={pageStyle.linkNav}
-              activeClassName={pageStyle.activeLink}
-            >
-              История заказов
-            </NavLink>
-          </li>
-          <li className={pageStyle.navigationItem}>
-            <Link
-              className={pageStyle.linkNav}
-              to="/"
-              onClick={() => dispatch(logoutDataUser())}
-            >
-              Выход
-            </Link>
-          </li>
-        </ul>
         <form onSubmit={handleSubmit}>
           <Input
             onChange={handleChange}
@@ -145,8 +111,9 @@ export const ProfilePage = () => {
             name={"password"}
             error={false}
             errorText={"Ошибка"}
-            disabled={true}
-          />
+            disabled={true} onChange={function (e: ChangeEvent<HTMLInputElement>): void {
+              throw new Error("Function not implemented.");
+            }} />
           {isEditeInput && (
             <div>
               <Button
@@ -163,11 +130,6 @@ export const ProfilePage = () => {
           )}
         </form>
       </div>
-      <p
-        className={`${pageStyle.notice} text text_type_main-default text_color_inactive mt-2`}
-      >
-        В этом разделе вы можете изменить свои персональные данные
-      </p>
     </div>
   );
 };

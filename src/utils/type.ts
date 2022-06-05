@@ -1,8 +1,10 @@
 import { Location } from "history";
+import { WS_CONNECTION_CLOSED, WS_CONNECTION_ERROR, WS_CONNECTION_START, WS_CONNECTION_SUCCESS, WS_GET_ORDERS } from "../services/action-types/ws-action-types";
 
 export type TLocation = {
   background?: Location;
-  from?: string
+  from?: string;
+  pathname?: string;
 };
 
 export type TIngredient = {
@@ -10,18 +12,28 @@ export type TIngredient = {
   itemId?: string;
   name: string;
   type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
+  proteins: number | null ;
+  fat: number | null;
+  carbohydrates: number | null;
+  calories: number | null;
   price: number;
   image: string;
   image_mobile: string;
   image_large: string;
+} ;
+
+export type TOrderItem = {
+  createdAt: string,
+  ingredients: Array<string>,
+  name: string,
+  number: number,
+  status: string,
+  updatedAt: string,
+  _id: string,
 };
 
 export type TIngredientsId = {
-  ingredients: number[];
+  ingredients: string[];
 };
 
 export type TDataForm = {
@@ -65,4 +77,12 @@ export type TCreateOrder = {
 export type TGetIngredients = {
   data: Array<TIngredient>;
   success: boolean;
+};
+
+export type WsActions = {
+  wsStart: typeof WS_CONNECTION_START;
+  onError: typeof WS_CONNECTION_ERROR;
+  onOrders: typeof WS_GET_ORDERS;
+  onClose: typeof WS_CONNECTION_CLOSED;
+  onOpen: typeof WS_CONNECTION_SUCCESS;
 };

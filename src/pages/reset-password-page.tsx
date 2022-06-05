@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, useHistory, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
 
 import {
   Button,
@@ -11,6 +10,7 @@ import {
 import { resetPassword } from "../utils/authApi";
 
 import pageStyle from "./page.module.css";
+import { useSelector } from "../utils/hooks";
 
 type TDataPassword ={
   password: string,
@@ -18,7 +18,7 @@ type TDataPassword ={
 }
 
 export const ResetPasswordPage = () => {
-  const { isLogin } = useSelector((store: any) => store.authDataUser);
+  const { isLogin } = useSelector((store) => store.authDataUser);
   const history = useHistory();
   const [data, setData] = React.useState<TDataPassword>({
     password: "",
