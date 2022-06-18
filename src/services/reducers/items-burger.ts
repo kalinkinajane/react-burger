@@ -11,7 +11,7 @@ type TItemsBurgerState ={
   itemsRequest: boolean,
   itemsFailed: boolean,
 }
-const initialState: TItemsBurgerState = {
+export const initialState: TItemsBurgerState = {
   items: [],
   itemsRequest: false,
   itemsFailed: false,

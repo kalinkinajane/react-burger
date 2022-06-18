@@ -12,7 +12,7 @@ type TItemsBurgerState ={
   orderDetailFailed: boolean,
 }
 
-const initialState: TItemsBurgerState = {
+export const initialState: TItemsBurgerState = {
   orderDetail: null,
   orderDetailRequest: false,
   orderDetailFailed: false,

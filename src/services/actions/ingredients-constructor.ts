@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from "uuid";
+
 import { TIngredient } from "../../utils/type";
 import {
   ADD_INGREDIENTS_BURGER,
@@ -36,12 +36,12 @@ export type TIngredientsConstrctorActions = IAddIngredientsBurger
 
 export const addBun = (item: TIngredient): IAddBun => ({
   type: ADD_BUN,
-  payload: { ...item, itemId: uuidv4() },
+  payload: item ,
 });
 
 export const addIngredients = (item: TIngredient): IAddIngredientsBurger => ({
   type: ADD_INGREDIENTS_BURGER,
-  payload: { ...item, itemId: uuidv4() },
+  payload: item,
 });
 
 export const deleteIngredient = (id: string | undefined): IDeleteIngredientBurger => ({

@@ -5,7 +5,7 @@ import { ADD_VIEW_INGREDIENT, REMOVE_VIEW_INGREDIENT } from "../action-types/act
 type TViewIngredientState = {
   viewIngredient: TIngredient | null;
 };
-const initialState: TViewIngredientState = {
+export const initialState: TViewIngredientState = {
   viewIngredient: null,
 };
 

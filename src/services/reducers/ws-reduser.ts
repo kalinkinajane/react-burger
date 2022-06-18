@@ -11,11 +11,11 @@ import { TWsActions } from "../actions/ws-actions";
 type TWSState = {
   wsConnected: boolean;
   orders: Array<TOrderItem>;
-  total: number,
-  totalToday: number,
+  total: number;
+  totalToday: number;
   error?: Event;
 };
-const initialState: TWSState = {
+export const initialState: TWSState = {
   wsConnected: false,
   orders: [],
   total: 0,
@@ -64,7 +64,6 @@ export const wsReduser = (
         orders: action.payload.orders,
         total: action.payload.total,
         totalToday: action.payload.totalToday,
-
       };
 
     default:

@@ -18,7 +18,7 @@ type TAuthState ={
   userDataRequest: boolean,
   userDataFailed: boolean,
 }
-const initialState : TAuthState = {
+export const initialState : TAuthState = {
   userProfile: {
     name: "",
     email: "",
