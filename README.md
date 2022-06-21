@@ -20,4 +20,4 @@ In the project directory, you can run:
 
 Стек:
 React
-для типизации использованны PropTypes
+для типизации использованны TypeScript
