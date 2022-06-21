@@ -44,6 +44,7 @@ const IngredientItem = ({ ingredient, onCardClick }: TIngredientItemProps) => {
       className={ingredientStyle.item}
       onClick={handleClick}
       style={{ opacity }}
+      id={_id}
     >
       <Link
         to={{

@@ -8,12 +8,12 @@ import {
   CLEAR_INGREDIENTS_CONSTRUCTOR,
 } from "../action-types/action-types";
 
-type TIngredientsState ={
+export type TIngredientsState ={
   burgerIngredients: Array<TIngredient>,
   bun: TIngredient | null,
   price: number,
 }
-const initialState: TIngredientsState = {
+export const initialState: TIngredientsState = {
   burgerIngredients: [],
   bun: null,
   price: 0,

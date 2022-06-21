@@ -1,6 +1,7 @@
 import React, { useEffect, useState, FC } from "react";
 import { useHistory } from "react-router-dom";
 import { useDrop } from "react-dnd";
+import { v4 as uuidv4 } from "uuid";
 
 import {
   ConstructorElement,
@@ -34,9 +35,10 @@ const BurgerConstructor : FC<TBurgerConstructorProps> = ({ openOrderDetails }) =
   const [{ isHover }, dropTargerRef] = useDrop({
     accept: "ingredient",
     drop(item : TIngredient ) {
+      const newItem = {...item, itemId: uuidv4()}
       item.type === "bun"
-        ? dispatch(addBun(item))
-        : dispatch(addIngredients(item));
+        ? dispatch(addBun(newItem))
+        : dispatch(addIngredients(newItem));
     },
     collect: (monitor) => ({
       isHover: monitor.isOver(),
